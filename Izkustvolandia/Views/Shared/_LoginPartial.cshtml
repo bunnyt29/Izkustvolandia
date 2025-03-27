@@ -4,25 +4,49 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-    }
-</ul>
+@* <ul class="navbar-nav"> *@
+@*     @if (SignInManager.IsSignedIn(User)) *@
+@*     { *@
+@*         <li class="nav-item"> *@
+@*             <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a> *@
+@*         </li> *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-controller="Products" asp-action="Cart"><i class="tf-ion-android-cart"></i> Количка</a> *@
+@*         </li> *@
+@*         @if (this.User.IsInRole("Admin")) *@
+@*         { *@
+@*             <li class="dropdown"> *@
+@*                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Администрация</button> *@
+@*                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink"> *@
+@*                     <li><a class="dropdown-item" asp-controller="Products" asp-action="Create">Добави продукт</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="Products" asp-action="All">Продукти</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="Users" asp-action="Add">Добави потребител</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="Users" asp-action="All">Потребители</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="Orders" asp-action="All">Поръчки</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="Genres" asp-action="All">Жанрове</a></li> *@
+@*                     <li><a class="dropdown-item" asp-controller="DrawingTechniques" asp-action="All">Техники на рисуване</a></li> *@
+@*                 </ul> *@
+@*             </li> *@
+@*         } *@
+@*         @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin")) *@
+@*         { *@
+@*             <li class="nav-item"> *@
+@*                 <a class="nav-link text-dark" asp-controller="Orders" asp-action="Mine">Поръчки</a> *@
+@*             </li> *@
+@*         } *@
+@*         <li class="nav-item"> *@
+@*             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"> *@
+@*                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button> *@
+@*             </form> *@
+@*         </li> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
+@*         </li> *@
+@*         <li class="nav-item"> *@
+@*             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
+@*         </li> *@
+@*     } *@
+@* </ul> *@

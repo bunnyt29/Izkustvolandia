@@ -1,3 +1,5 @@
+@using Izkustvolandia.Domain
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Izkustvolandia.Models.Products.EditProductInputModel
 
 @{
@@ -50,6 +52,26 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label for="Genres">Жанрове</label>
+                <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
+                    @foreach (Genre genre in ViewBag.Genres)
+                    {
+                        <option value="@genre.GenreId">@genre.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="GenreIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="DrawingTechniques">Техники на рисуване</label>
+                <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
+                    @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
+                    {
+                        <option value="@drawingTechnique.DrawingTechniqueId">@drawingTechnique.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="GenreIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -57,6 +79,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="All">Back to List</a>
 </div>
 

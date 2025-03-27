@@ -28,5 +28,5 @@ public class Product
     
     public ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
 
-
+    public ICollection<User> Users { get; set; } = new HashSet<User>();
 }

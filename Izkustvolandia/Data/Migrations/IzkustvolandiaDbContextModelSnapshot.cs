@@ -52,6 +52,21 @@ namespace Izkustvolandia.Data.Migrations
                     b.ToTable("GenreProduct");
                 });
 
+            modelBuilder.Entity("Izkustvolandia.Domain.Cart", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProductId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("Izkustvolandia.Domain.DrawingTechnique", b =>
                 {
                     b.Property<int>("DrawingTechniqueId")
@@ -207,11 +222,11 @@ namespace Izkustvolandia.Data.Migrations
 
             modelBuilder.Entity("Izkustvolandia.Domain.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -228,7 +243,7 @@ namespace Izkustvolandia.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -302,68 +317,7 @@ namespace Izkustvolandia.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "55cba290-9862-49e8-aa29-194a3b72de77",
-                            ConcurrencyStamp = "55cba290-9862-49e8-aa29-194a3b72de77",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("Izkustvolandia.Domain.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -375,17 +329,20 @@ namespace Izkustvolandia.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -432,9 +389,104 @@ namespace Izkustvolandia.Data.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator().HasValue("IdentityUser");
+                    b.HasData(
+                        new
+                        {
+                            Id = "50bd6775-85d1-4947-9bd8-359a4b4293ef",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a56b6655-817e-47da-acd3-f053acda7ba0",
+                            Email = "admin@izkustvolandia.com",
+                            EmailConfirmed = true,
+                            FirstName = "Иван",
+                            LastName = "Иванов",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@IZKUSTVOLANDIA.COM",
+                            NormalizedUserName = "ADMIN@IZKUSTVOLANDIA.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENsGOeCxp4rMyJqopVTPEc42VJN8gJnvQ2hSDeZ6EEp7zULUDru0HKdJ88vMvWBLOw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "96aa3ccb-128f-49af-81b8-1c2f8e6b3b74",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@izkustvolandia.com"
+                        },
+                        new
+                        {
+                            Id = "e5814873-b2fb-4cfd-bce5-49982d64eadc",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "992b2384-10dc-4039-9fd0-528cabf2d1f8",
+                            Email = "user@izkustvolandia.com",
+                            EmailConfirmed = true,
+                            FirstName = "Иван",
+                            LastName = "Георгиев",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@IZKUSTVOLANDIA.COM",
+                            NormalizedUserName = "USER@IZKUSTVOLANDIA.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEESRWCXYspOSsrcEwI+OBag1v4TXTmKptUbudJuuG4h6AM1w5tIWWdEQQjjZfrFGCA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8b22cb7c-4fd9-4b2e-89cf-4b59e509d4d1",
+                            TwoFactorEnabled = false,
+                            UserName = "user@izkustvolandia.com"
+                        });
+                });
 
-                    b.UseTphMappingStrategy();
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c746d689-e53c-4a2b-86b5-3dbf740e78e1",
+                            ConcurrencyStamp = "c746d689-e53c-4a2b-86b5-3dbf740e78e1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -503,8 +555,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "f4fd4648-f027-4b4d-8f5a-4b7219ac5a51",
-                            RoleId = "55cba290-9862-49e8-aa29-194a3b72de77"
+                            UserId = "50bd6775-85d1-4947-9bd8-359a4b4293ef",
+                            RoleId = "c746d689-e53c-4a2b-86b5-3dbf740e78e1"
                         });
                 });
 
@@ -527,59 +579,6 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Izkustvolandia.Domain.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "f4fd4648-f027-4b4d-8f5a-4b7219ac5a51",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1f7e79b-2488-4b5d-afec-7f88212d1329",
-                            Email = "admin@izkustvolandia.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@IZKUSTVOLANDIA.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMXoyvBfXTml3/fO8h0BkwhJ+7OOOhYGTU5J8cQ3akcmFyOCw3e7zUw0Q43WeEWrDQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "bf9c3c82-0841-4826-9927-494674fb6df0",
-                            TwoFactorEnabled = false,
-                            UserName = "admin",
-                            FirstName = "Иван",
-                            LastName = "Иванов"
-                        },
-                        new
-                        {
-                            Id = "dd25c531-a9ae-4419-87c6-b1de3d202677",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6775ba70-f430-4d06-876b-063f7018020e",
-                            Email = "user@izkustvolandia.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@IZKUSTVOLANDIA.COM",
-                            NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAIAAYagAAAAECK6a/EQXmGzv54b7Fp4nPdW2S8YIpyYlbS8l0YsYLiLuI7DmxTfaeUXXnl24JlFbA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "00df0834-6591-4f65-b2d7-1ecf4174f9f7",
-                            TwoFactorEnabled = false,
-                            UserName = "user",
-                            FirstName = "Иван",
-                            LastName = "Георгиев"
-                        });
                 });
 
             modelBuilder.Entity("DrawingTechniqueProduct", b =>
@@ -610,6 +609,25 @@ namespace Izkustvolandia.Data.Migrations
                         .HasForeignKey("ProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Izkustvolandia.Domain.Cart", b =>
+                {
+                    b.HasOne("Izkustvolandia.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Izkustvolandia.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Izkustvolandia.Domain.Order", b =>
@@ -653,7 +671,7 @@ namespace Izkustvolandia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Izkustvolandia.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -662,7 +680,7 @@ namespace Izkustvolandia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Izkustvolandia.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -677,7 +695,7 @@ namespace Izkustvolandia.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Izkustvolandia.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -686,7 +704,7 @@ namespace Izkustvolandia.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Izkustvolandia.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

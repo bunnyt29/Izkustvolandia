@@ -19,4 +19,8 @@ public class EditProductInputModel
     public double Height { get; set; }
 
     public decimal Price { get; set; }
+    
+    public List<int> GenreIds { get; set; } = new();
+    
+    public List<int> DrawingTechniqueIds { get; set; } = new();
 }

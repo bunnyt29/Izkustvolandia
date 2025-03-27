@@ -9,5 +9,6 @@ public class User : IdentityUser
     public string LastName { get; set; }
     
     public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
-
+    
+    public ICollection<Product> Products { get; set; } = new List<Product>();
 }

@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Folder Include="Data\Migrations\" />
+      <Folder Include="wwwroot\Image\product-images\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -32,6 +33,14 @@
       <_ContentIncludedByDefault Remove="wwwroot\Image\chocolat\left.png" />
       <_ContentIncludedByDefault Remove="wwwroot\Image\chocolat\loader.gif" />
       <_ContentIncludedByDefault Remove="wwwroot\Image\chocolat\right.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\instagram-feed.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\jquery-3.3.1.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\jquery.cookie.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\masonry.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\modernizr-3.6.0.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\photoswipe-ui-default.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\photoswipe.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\vendor\wow.min.js" />
     </ItemGroup>
 
 </Project>

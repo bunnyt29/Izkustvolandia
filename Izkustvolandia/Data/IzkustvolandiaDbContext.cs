@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Izkustvolandia.Data;
 
-public class IzkustvolandiaDbContext : IdentityDbContext
+public class IzkustvolandiaDbContext : IdentityDbContext<User>
 {
     public IzkustvolandiaDbContext(DbContextOptions<IzkustvolandiaDbContext> options)
         : base(options)
@@ -21,6 +21,8 @@ public class IzkustvolandiaDbContext : IdentityDbContext
     public DbSet<Order> Orders { get; set; }
 
     public DbSet<OrderProduct> OrderProducts { get; set; }
+    
+    public DbSet<Cart> Carts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -36,6 +38,10 @@ public class IzkustvolandiaDbContext : IdentityDbContext
             .HasMany(p => p.OrderProducts)
             .WithOne(o => o.Product);
         
+        builder.Entity<Product>()
+            .HasMany(p => p.Users)
+            .WithMany(u => u.Products)
+            .UsingEntity<Cart>();
         
         builder.Entity<Order>()
             .HasMany(o  => o.OrderProducts)
@@ -66,8 +72,8 @@ public class IzkustvolandiaDbContext : IdentityDbContext
             EmailConfirmed = true,
             FirstName = "Иван",
             LastName = "Иванов",
-            UserName = "admin",
-            NormalizedUserName = "ADMIN"
+            UserName = "admin@izkustvolandia.com",
+            NormalizedUserName = "ADMIN@IZKUSTVOLANDIA.COM"
         };
 
         PasswordHasher<User> ph = new PasswordHasher<User>();
@@ -93,8 +99,8 @@ public class IzkustvolandiaDbContext : IdentityDbContext
             EmailConfirmed = true,
             FirstName = "Иван",
             LastName = "Георгиев",
-            UserName = "user",
-            NormalizedUserName = "USER"
+            UserName = "user@izkustvolandia.com",
+            NormalizedUserName = "USER@IZKUSTVOLANDIA.COM"
         };
 
         user.PasswordHash = ph.HashPassword(user, "User_123");

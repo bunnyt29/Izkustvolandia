@@ -1,8 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Izkustvolandia.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +18,10 @@ namespace Izkustvolandia.Areas.Identity.Pages.Account
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        
+
         [BindProperty]
         public InputModel Input { get; set; }
-        
+
         public class InputModel
         {
             [Required(ErrorMessage = "Полето е задължително.")]
@@ -72,7 +68,7 @@ namespace Izkustvolandia.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToPage("/");
+                return RedirectToPage("/Identity/Account/Login");
             }
             
             foreach (var error in result.Errors)

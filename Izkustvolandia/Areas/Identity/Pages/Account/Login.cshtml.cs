@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -19,22 +19,22 @@ namespace Izkustvolandia.Areas.Identity.Pages.Account
         {
             _signInManager = signInManager;
         }
-        
+
         [BindProperty]
         public InputModel Input { get; set; }
-        
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
-        
+
         [TempData]
         public string ErrorMessage { get; set; }
-        
+
         public class InputModel
         {
             [Required]
             public string Email { get; set; }
-            
+    
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
@@ -60,15 +60,15 @@ namespace Izkustvolandia.Areas.Identity.Pages.Account
             {
                 return Page();
             }
-            
+    
             var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-            
+    
             if (!result.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Грешно име или парола.");
                 return Page();
             }
-            
+    
             return RedirectToAction("Index", "Home");
         }
     }

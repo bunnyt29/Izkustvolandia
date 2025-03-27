@@ -1,0 +1,52 @@
+@model Izkustvolandia.Models.Users.UserDetailsViewModel
+
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content">
+                    <h1 class="page-name">Редактирай потребител</h1>
+                    <ol class="breadcrumb">
+                        <li class="active">Добави потребител</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="user-dashboard page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dashboard-wrapper user-dashboard">
+                    <form id="contact-form" method="post" asp-action="Update" asp-route-id="@Model.UserId" role="form" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-group">
+                            <input type="text" asp-for="FirstName" placeholder="Име" class="form-control">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" asp-for="LastName" placeholder="Фамилия" class="form-control">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" asp-for="Email" placeholder="Имейл" class="form-control">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div id="cf-submit">
+                            <input type="submit" id="contact-submit" class="btn btn-transparent" value="Обнови">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
