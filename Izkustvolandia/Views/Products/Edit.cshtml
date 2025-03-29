@@ -3,82 +3,99 @@
 @model Izkustvolandia.Models.Products.EditProductInputModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактиране";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h4 class="card-title mb-0" style="font-size: 1.75rem;">Редактиране на продукт</h4>
+        </div>
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProductId" />
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Width" class="control-label"></label>
-                <input asp-for="Width" class="form-control" />
-                <span asp-validation-for="Width" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Height" class="control-label"></label>
-                <input asp-for="Height" class="form-control" />
-                <span asp-validation-for="Height" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Genres">Жанрове</label>
-                <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
-                    @foreach (Genre genre in ViewBag.Genres)
-                    {
-                        <option value="@genre.GenreId">@genre.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="GenreIds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="DrawingTechniques">Техники на рисуване</label>
-                <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
-                    @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
-                    {
-                        <option value="@drawingTechnique.DrawingTechniqueId">@drawingTechnique.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="GenreIds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="card-body">
+            <form  asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="ProductId" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label">Снимка на продукта</label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label">Заглавие на продукта</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="control-label">Описание</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Author" class="control-label">Автор</label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Width" class="control-label">Ширина</label>
+                    <input asp-for="Width" class="form-control" />
+                    <span asp-validation-for="Width" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Height" class="control-label">Височина</label>
+                    <input asp-for="Height" class="form-control" />
+                    <span asp-validation-for="Height" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Price" class="control-label">Цена</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Genres">Жанрове</label>
+                    <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
+                        @foreach (Genre genre in ViewBag.Genres)
+                        {
+                            <option value="@genre.GenreId" selected="@(Model.GenreIds.Contains(genre.GenreId) ? "selected" : null)">
+                                @genre.Name
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="GenreIds" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="DrawingTechniques">Техники на рисуване</label>
+                    <select asp-for="DrawingTechniqueIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
+                        @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
+                        {
+                            <option value="@drawingTechnique.DrawingTechniqueId" selected="@(Model.DrawingTechniqueIds.Contains(drawingTechnique.DrawingTechniqueId) ? "selected" : null)">
+                                @drawingTechnique.Name
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="DrawingTechniqueIds" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="submit" value="Запази промените" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="All" class="btn btn-link" style="font-size: 1.2rem;">
+            <i class="fa fa-arrow-left"></i> Назад към списъка
+        </a>
     </div>
 </div>
-
-<div>
-    <a asp-action="All">Back to List</a>
-</div>
-

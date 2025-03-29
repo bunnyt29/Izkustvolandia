@@ -2,64 +2,129 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Izkustvolandia.Areas.Identity.Pages.Account.RegisterModel
 
-<div id="page-content">
-    <!--Page Title-->
-    <div class="page section-header text-center">
-        <div class="page-title">
-            <div class="wrapper"><h1 class="page-width">Създай своя акаунт</h1></div>
+@* <div id="page-content"> *@
+@*     <!--Page Title--> *@
+@*     <div class="page section-header text-center"> *@
+@*         <div class="page-title"> *@
+@*             <div class="wrapper"><h1 class="page-width">Създай своя акаунт</h1></div> *@
+@*         </div> *@
+@*     </div> *@
+@*     <!--End Page Title--> *@
+@* *@
+@*     <div class="container"> *@
+@*         <div class="row"> *@
+@*             <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3"> *@
+@*                 <div class="mb-4"> *@
+@*                     <form method="post" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form"> *@
+@*                         <div class="row"> *@
+@*                             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.FirstName" for="FirstName">Име</label> *@
+@*                                     <input asp-for="Input.FirstName" type="text" placeholder="" id="FirstName" autofocus=""> *@
+@*                                     <span asp-validation-for="Input.FirstName" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.LastName" for="LastName">Фамилия</label> *@
+@*                                     <input asp-for="Input.LastName" type="text" placeholder="" id="LastName"> *@
+@*                                     <span asp-validation-for="Input.LastName" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.Email" for="CustomerEmail">Имейл</label> *@
+@*                                     <input asp-for="Input.Email" type="email" placeholder="" id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus=""> *@
+@*                                     <span asp-validation-for="Input.Email" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.Password" for="CustomerPassword">Парола</label> *@
+@*                                     <input asp-for="Input.Password" type="password" placeholder="" id="CustomerPassword"> *@
+@*                                     <span asp-validation-for="Input.Password" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.ConfirmPassword" for="ConfirmPassword">Повтори парола</label> *@
+@*                                     <input asp-for="Input.ConfirmPassword" type="password" placeholder="" id="ConfirmPassword"> *@
+@*                                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                         <div class="row"> *@
+@*                             <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <button id="registerSubmit" type="submit" class="btn mb-3">Създай</button> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </form> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+<div class="breadcrumb-area bg-image-3 ptb-150">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h3>Регистрация</h3>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="active">Регистрация</li>
+            </ul>
         </div>
     </div>
-    <!--End Page Title-->
-
+</div>
+<!-- Breadcrumb Area End -->
+<div class="login-register-area ptb-100">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
-                <div class="mb-4">
-                    <form method="post" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">
-                        <div class="row">
-                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.FirstName" for="FirstName">Име</label>
-                                    <input asp-for="Input.FirstName" type="text" placeholder="" id="FirstName" autofocus="">
-                                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.LastName" for="LastName">Фамилия</label>
-                                    <input asp-for="Input.LastName" type="text" placeholder="" id="LastName">
-                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.Email" for="CustomerEmail">Имейл</label>
-                                    <input asp-for="Input.Email" type="email" placeholder="" id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus="">
-                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.Password" for="CustomerPassword">Парола</label>
-                                    <input asp-for="Input.Password" type="password" placeholder="" id="CustomerPassword">
-                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.ConfirmPassword" for="ConfirmPassword">Повтори парола</label>
-                                    <input asp-for="Input.ConfirmPassword" type="password" placeholder="" id="ConfirmPassword">
-                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a data-toggle="tab" href="#lg2">
+                            <h4> Регистрация </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg2" class="tab-pane active show">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form method="post" accept-charset="UTF-8">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                                        <label asp-for="Input.FirstName" for="FirstName">Име</label>
+                                        <input asp-for="Input.FirstName" type="text" placeholder="" id="FirstName" autofocus="">
+                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+
+                                        <label asp-for="Input.LastName" for="LastName">Фамилия</label>
+                                        <input asp-for="Input.LastName" type="text" placeholder="" id="LastName" autofocus="">
+                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+
+                                        <label asp-for="Input.Email" for="CustomerEmail">Имейл</label>
+                                        <input asp-for="Input.Email" type="email" placeholder="" id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus="">
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                                        <label asp-for="Input.Password" for="CustomerPassword">Парола</label>
+                                        <input asp-for="Input.Password" type="password" placeholder="" id="CustomerPassword">
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                                        <label asp-for="Input.ConfirmPassword" for="ConfirmPassword">Повтори парола</label>
+                                        <input asp-for="Input.ConfirmPassword" type="password" placeholder="" id="ConfirmPassword">
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                        @* <input type="text" name="user-name" placeholder="Username"> *@
+                                        @* <input type="password" name="user-password" placeholder="Password"> *@
+                                        @* <input name="user-email" placeholder="Email" type="email"> *@
+                                        <div class="button-box">
+                                            <button type="submit" id="registerSubmit"><span>Регистрирай се!</span></button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
-                                <button id="registerSubmit" type="submit" class="btn mb-3">Създай</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

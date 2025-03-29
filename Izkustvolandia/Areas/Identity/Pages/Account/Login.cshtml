@@ -2,57 +2,57 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Izkustvolandia.Areas.Identity.Pages.Account.LoginModel
 
-<div id="page-content">
-    <!--Page Title-->
-    <div class="page section-header text-center">
-        <div class="page-title">
-            <div class="wrapper"><h1 class="page-width">Вход</h1></div>
-        </div>
-    </div>
-    <!--End Page Title-->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
-                <div class="mb-4">
-                    <form method="post" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">
-                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.Email">Имейл</label>
-                                    <input asp-for="Input.Email" type="email" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus="">
-                                    <span asp-validation-for="Input.Email" class="text-danger"></span>  
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="Input.Password">Парола</label>
-                                    <input asp-for="Input.Password" type="password" placeholder="" id="CustomerPassword" class="">
-                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkbox mb-3">
-                            <label asp-for="Input.RememberMe" class="form-label">
-                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                @Html.DisplayNameFor(m => m.Input.RememberMe)
-                            </label>
-                        </div>
-                        <div class="row">
-                            <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
-                                <button id="login-submit" type="submit" class="btn mb-3">Вход</button>
-                                <p class="mb-4">
-                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Нямаш акаунт? Създай си</a>
-                                </p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@* <div id="page-content"> *@
+@*     <!--Page Title--> *@
+@*     <div class="page section-header text-center"> *@
+@*         <div class="page-title"> *@
+@*             <div class="wrapper"><h1 class="page-width">Вход</h1></div> *@
+@*         </div> *@
+@*     </div> *@
+@*     <!--End Page Title--> *@
+@* *@
+@*     <div class="container"> *@
+@*         <div class="row"> *@
+@*             <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3"> *@
+@*                 <div class="mb-4"> *@
+@*                     <form method="post" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form"> *@
+@*                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div> *@
+@*                         <div class="row"> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.Email">Имейл</label> *@
+@*                                     <input asp-for="Input.Email" type="email" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus=""> *@
+@*                                     <span asp-validation-for="Input.Email" class="text-danger"></span>   *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <div class="form-group"> *@
+@*                                     <label asp-for="Input.Password">Парола</label> *@
+@*                                     <input asp-for="Input.Password" type="password" placeholder="" id="CustomerPassword" class=""> *@
+@*                                     <span asp-validation-for="Input.Password" class="text-danger"></span> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                         <div class="checkbox mb-3"> *@
+@*                             <label asp-for="Input.RememberMe" class="form-label"> *@
+@*                                 <input class="form-check-input" asp-for="Input.RememberMe" /> *@
+@*                                 @Html.DisplayNameFor(m => m.Input.RememberMe) *@
+@*                             </label> *@
+@*                         </div> *@
+@*                         <div class="row"> *@
+@*                             <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12"> *@
+@*                                 <button id="login-submit" type="submit" class="btn mb-3">Вход</button> *@
+@*                                 <p class="mb-4"> *@
+@*                                     <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Нямаш акаунт? Създай си</a> *@
+@*                                 </p> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </form> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
 
 @* *@
 @* <div class="container text-center"> *@
@@ -92,6 +92,60 @@
 @*         </div> *@
 @*     </div> *@
 @*     </div> *@
+
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area bg-image-3 ptb-150">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h3>ВХОД</h3>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="active">Вход</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+<div class="login-register-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" data-toggle="tab" href="#lg1">
+                            <h4> Вход </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form id="account" method="post">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                        
+                                        <label asp-for="Input.Email" class="form-label">Имейл</label>
+                                        <input asp-for="Input.Email" aria-required="true" placeholder="name@example.com"/>
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                                        <label asp-for="Input.Password" class="form-label">Парола</label>
+                                        <input asp-for="Input.Password" aria-required="true" placeholder="password"/>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        <p>
+                                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Нямаш профил? <span class="theme-color">Регистрирай се!</span></a>
+                                        </p>
+                                        <div class="button-box">
+                                            <button id="login-submit" type="submit"><span>Вход</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

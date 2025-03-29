@@ -3,81 +3,95 @@
 @model Izkustvolandia.Models.Products.CreateProductInputModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Създай продукт";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="mb-4 text-center text-uppercase">Създай продукт</h2>
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Image" class="control-label"></label>
+                            <input asp-for="Image" class="form-control" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Author" class="control-label"></label>
+                            <input asp-for="Author" class="form-control" />
+                            <span asp-validation-for="Author" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label asp-for="Width" class="control-label"></label>
+                                <input asp-for="Width" class="form-control" />
+                                <span asp-validation-for="Width" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="Height" class="control-label"></label>
+                                <input asp-for="Height" class="form-control" />
+                                <span asp-validation-for="Height" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Genres">Жанрове</label>
+                            <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
+                                @foreach (Genre genre in ViewBag.Genres)
+                                {
+                                    <option value="@genre.GenreId">@genre.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="GenreIds" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="DrawingTechniques">Техники на рисуване</label>
+                            <select asp-for="DrawingTechniqueIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
+                                @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
+                                {
+                                    <option value="@drawingTechnique.DrawingTechniqueId">@drawingTechnique.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="DrawingTechniqueIds" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Създай" class="btn btn-primary px-4" />
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="All" class="btn btn-link">← Назад към списъка</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Width" class="control-label"></label>
-                <input asp-for="Width" class="form-control" />
-                <span asp-validation-for="Width" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Height" class="control-label"></label>
-                <input asp-for="Height" class="form-control" />
-                <span asp-validation-for="Height" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="Genres">Жанрове</label>
-                <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
-                    @foreach (Genre genre in ViewBag.Genres)
-                    {
-                        <option value="@genre.GenreId">@genre.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="GenreIds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="DrawingTechniques">Техники на рисуване</label>
-                <select asp-for="DrawingTechniqueIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
-                    @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
-                    {
-                        <option value="@drawingTechnique.DrawingTechniqueId">@drawingTechnique.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="DrawingTechniqueIds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
