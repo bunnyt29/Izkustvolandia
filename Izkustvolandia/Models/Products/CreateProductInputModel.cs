@@ -5,7 +5,7 @@ namespace Izkustvolandia.Models.Products;
 public class CreateProductInputModel
 {
     [Required(ErrorMessage = "Полето е задължително.")]
-    public IFormFile Image { get; set; }
+    public IFormFile[] Images { get; set; }
     
     [Required(ErrorMessage = "Полето е задължително.")]
     [MinLength(2, ErrorMessage = "Въведи поне 2 символа.")]

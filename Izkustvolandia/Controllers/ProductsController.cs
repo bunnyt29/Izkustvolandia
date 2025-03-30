@@ -36,7 +36,7 @@ namespace Izkustvolandia.Controllers
                     ProductId = p.ProductId,
                     Name = p.Name,
                     Description = p.Description,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrls = p.ImageUrls,
                     Author = p.Author,
                     Width = p.Width,
                     Height = p.Height,
@@ -147,7 +147,7 @@ namespace Izkustvolandia.Controllers
                     ProductId = p.ProductId,
                     Name = p.Name,
                     Description = p.Description,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrls = p.ImageUrls,
                     Author = p.Author,
                     Width = p.Width,
                     Height = p.Height,
@@ -165,7 +165,7 @@ namespace Izkustvolandia.Controllers
                         ProductId = p.ProductId,
                         Name = p.Name,
                         Description = p.Description,
-                        ImageUrl = p.ImageUrl,
+                        ImageUrls = p.ImageUrls,
                         Author = p.Author,
                         Width = p.Width,
                         Height = p.Height,
@@ -214,13 +214,13 @@ namespace Izkustvolandia.Controllers
                 return View(inputModel);
             }
 
-            var fileName = UploadImage(inputModel.Image);
+            var fileNames = UploadImages(inputModel.Images);
 
             var product = new Product
             {
                 Name = inputModel.Name,
                 Description = inputModel.Description,
-                ImageUrl = fileName,
+                ImageUrls = fileNames,
                 Author = inputModel.Author,
                 Width = inputModel.Width,
                 Height = inputModel.Height,
@@ -265,7 +265,7 @@ namespace Izkustvolandia.Controllers
                     ProductId = p.ProductId,
                     Name = p.Name,
                     Description = p.Description,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrls = p.ImageUrls,
                     Author = p.Author,
                     Width = p.Width,
                     Height = p.Height,
@@ -309,10 +309,10 @@ namespace Izkustvolandia.Controllers
                 return NotFound();
             }
 
-            if (inputModel.Image is not null)
+            if (inputModel.Images is not null)
             {
-                var fileName = UploadImage(inputModel.Image);
-                product.ImageUrl = fileName;
+                var fileNames = UploadImages(inputModel.Images);
+                product.ImageUrls = fileNames;
             }
 
             product.Name = inputModel.Name;
@@ -429,7 +429,7 @@ namespace Izkustvolandia.Controllers
                     ProductId = c.Product.ProductId,
                     Name = c.Product.Name,
                     Description = c.Product.Description,
-                    ImageUrl = c.Product.ImageUrl,
+                    ImageUrls = c.Product.ImageUrls,
                     Author = c.Product.Author,
                     Width = c.Product.Width,
                     Height = c.Product.Height,
@@ -476,6 +476,26 @@ namespace Izkustvolandia.Controllers
 
             return "";
         }
+        
+        private List<string> UploadImages(IFormFile[] files)
+        {
+            if (files != null && files.Length > 0)
+            {
+                List<string> fileNames = new List<string>();
+
+                files = files.OrderBy(f => f.FileName).ToArray();
+                
+                foreach (var file in files)
+                {
+                    fileNames.Add(UploadImage(file));
+                }
+                
+                return fileNames; 
+            }
+
+            return new List<string>();
+        }
+        
         
         private async Task<ListingProductViewModel> GetListingProductViewModel()
         {

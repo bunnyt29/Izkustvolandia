@@ -19,10 +19,10 @@
                 <input type="hidden" asp-for="ProductId" />
 
                 <div class="form-group mb-3">
-                    <label asp-for="Image" class="control-label">Снимка на продукта</label>
-                    <input type="hidden" asp-for="ImageUrl" class="form-control" />
-                    <img src="~/Images/@Model.ImageUrl" alt="">
-                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <label asp-for="Images" class="control-label">Снимка на продукта</label>
+                    <input type="hidden" asp-for="ImageUrls" class="form-control" />
+                    <img src="~/Images/@Model.ImageUrls" alt="">
+                    <span asp-validation-for="Images" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
