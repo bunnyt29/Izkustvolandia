@@ -32,9 +32,8 @@ namespace Izkustvolandia.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -87,7 +86,7 @@ namespace Izkustvolandia.Data.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrls = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -212,7 +211,7 @@ namespace Izkustvolandia.Data.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -221,12 +220,36 @@ namespace Izkustvolandia.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => new { x.ProductId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -294,7 +317,7 @@ namespace Izkustvolandia.Data.Migrations
                         name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
+                        principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderProducts_Products_ProductId",
@@ -307,21 +330,58 @@ namespace Izkustvolandia.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "dbae7401-5c00-4ab9-9e3e-7eda5ccc71d2", "dbae7401-5c00-4ab9-9e3e-7eda5ccc71d2", "Admin", "ADMIN" });
+                values: new object[] { "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "22c680fb-3f08-47b1-9d09-2462d9e931a9", 0, "4645c415-b2de-41e0-9a06-5aa9f03bccd0", "User", "admin@izkustvolandia.com", true, "Иван", "Иванов", false, null, "ADMIN@IZKUSTVOLANDIA.COM", "ADMIN", "AQAAAAIAAYagAAAAEKBFDJwwCGYtW4pWt3pgJmzH0N/7PXyg2l45u3zvjFDoFcVlttYX5vnnlfIlqwLFMQ==", null, false, "21d5827a-5b6f-4647-a3b5-b1a353920f15", false, "admin" },
-                    { "b3402b8c-7ca4-4b7d-83ca-4e86ae6c51b0", 0, "9b6021bb-7df7-48ac-925c-a577b0f11b65", "User", "user@izkustvolandia.com", true, "Иван", "Георгиев", false, null, "USER@IZKUSTVOLANDIA.COM", "USER", "AQAAAAIAAYagAAAAEA3eLWR85RsmgsVlUasKvfeuVTjI/uF6Urh5XzRcnDrxdq7Ei83II5rZXD+/QvCmjQ==", null, false, "ed1a3b6b-0386-48e0-b931-0c871abd69ff", false, "user" }
+                    { "42b8b9b7-65cb-4677-a2dd-3daaf8c918e7", 0, "c694483a-0bbe-4d77-8aec-5549cbe937aa", "user@izkustvolandia.com", true, "Иван", "Георгиев", false, null, "USER@IZKUSTVOLANDIA.COM", "USER@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEAZTmm4EMWpCii22VZVKFLxfDcleBcsCl0g90rbZ7tuMUb0c7D+MEUWUPN0VoJFOIQ==", null, false, "e13df864-4de3-4736-b0a7-f6eed88a6e93", false, "user@izkustvolandia.com" },
+                    { "e166b00e-c141-4b0d-86cb-00b39f5146a1", 0, "49adfb12-681e-43e7-86e4-273089e7acca", "admin@izkustvolandia.com", true, "Иван", "Иванов", false, null, "ADMIN@IZKUSTVOLANDIA.COM", "ADMIN@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEPxsAb1s9NJtJqS4Rt5JvfMdWbgmbOkQvmXGrjvnS/v1AMSzkoJUS2f/66jyN6XF+A==", null, false, "f4525c88-1ef2-4316-884a-0f9ae93fcfa4", false, "admin@izkustvolandia.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DrawingTechniques",
+                columns: new[] { "DrawingTechniqueId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Маслени бои" },
+                    { 2, "Акварел" },
+                    { 3, "Темпера" },
+                    { 4, "Графика" },
+                    { 5, "Поантилизъм" },
+                    { 6, "Фреска" },
+                    { 7, "Гуаш" },
+                    { 8, "Пастел" },
+                    { 9, "Дигитална живопис" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "GenreId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Портрет" },
+                    { 2, "Пейзаж" },
+                    { 3, "Натюрморт" },
+                    { 4, "Историческа живопис" },
+                    { 5, "Религиозно изкуство" },
+                    { 6, "Жанрова живопис" },
+                    { 7, "Анималистика" },
+                    { 8, "Сюрреализъм" },
+                    { 9, "Абстрактно изкуство" },
+                    { 10, "Кубизъм" },
+                    { 11, "Импресионизъм" },
+                    { 12, "Неоимпресионизъм" },
+                    { 13, "Поп арт" },
+                    { 14, "Миниатюра" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "dbae7401-5c00-4ab9-9e3e-7eda5ccc71d2", "22c680fb-3f08-47b1-9d09-2462d9e931a9" });
+                values: new object[] { "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "e166b00e-c141-4b0d-86cb-00b39f5146a1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -361,6 +421,11 @@ namespace Izkustvolandia.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DrawingTechniqueProduct_ProductsProductId",
@@ -405,6 +470,9 @@ namespace Izkustvolandia.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "DrawingTechniqueProduct");

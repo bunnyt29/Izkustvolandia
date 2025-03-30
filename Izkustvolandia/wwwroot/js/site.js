@@ -2,6 +2,55 @@
     $('.js-example-basic-multiple').select2();
 });
 
+$(document).ready(function () {
+    var $gallery = $("#gallery");
+    
+    // Initialize zoom on main image
+    $("#mainImage").elevateZoom({
+        zoomType: "lens",
+        lensShape: "round",
+        lensSize: 200,
+        scrollZoom: true
+    });
+
+    if ($gallery.hasClass("owl-loaded")) {
+        $gallery.trigger("destroy.owl.carousel");
+        $gallery.removeClass("owl-loaded owl-carousel owl-theme");
+        $gallery.find('.owl-stage-outer').children().unwrap(); // unwrap owl-stage-outer
+    }
+
+    $gallery.owlCarousel({
+        items: 4,
+        loop: true,
+        margin: 10,
+        nav: true,
+        navText: ["<span>&#8592;</span>", "<span>&#8594;</span>"]
+    });
+
+    // When a thumbnail is clicked
+    $("#gallery a").on("click", function (e) {
+        e.preventDefault();
+
+        var newImage = $(this).data("image");
+        var newZoomImage = $(this).data("zoom-image");
+
+        // Remove old zoom instance
+        $.removeData($('#mainImage')[0], 'elevateZoom');
+        $('.zoomContainer').remove();
+
+        // Update image src and zoom attributes
+        $('#mainImage')
+            .attr('src', newImage)
+            .attr('data-zoom-image', newZoomImage)
+            .elevateZoom({
+                zoomType: "lens",
+                lensShape: "round",
+                lensSize: 200,
+                scrollZoom: true
+            });
+    });
+});
+
 
 (function($) {
     'use strict';

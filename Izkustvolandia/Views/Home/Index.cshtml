@@ -65,7 +65,7 @@
 
 				@for (int i = 0; i < images.Count; i++)
 				{
-					<img src="Image/product-images/@images[i].ImageUrl"
+					<img src="Image/product-images/@images[i].ImageUrls.First()"
 					     alt="Картина"
 					     class="floating-img"
 					     style="width: 250px; height: 250px; top: @positions[i].top; left: @positions[i].left;" />
@@ -86,7 +86,7 @@
 						<div class="product-wrapper">
 							<div class="product-img">
 								<a asp-action="Details" asp-route-id="@product.ProductId">
-									<img alt="" src="~/Image/product-images/@product.ImageUrl">
+									<img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
 								</a>
 								<div class="product-action">
 									<a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">

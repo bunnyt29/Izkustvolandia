@@ -392,9 +392,9 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a15fa3a7-600c-4d8c-aaff-d8ac32f13fa0",
+                            Id = "e166b00e-c141-4b0d-86cb-00b39f5146a1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "327197d5-3f76-48b5-af12-0dcf3fd9b19a",
+                            ConcurrencyStamp = "49adfb12-681e-43e7-86e4-273089e7acca",
                             Email = "admin@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -402,17 +402,17 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "ADMIN@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELpFdbTPmvo/Ya3WKpP3o1aYJp/E+FwrAmr8WDdaTLPkybmlEBEDBkcJmCmTWGCuNQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPxsAb1s9NJtJqS4Rt5JvfMdWbgmbOkQvmXGrjvnS/v1AMSzkoJUS2f/66jyN6XF+A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "92671f55-a360-4e47-92fc-e028c3bf05ed",
+                            SecurityStamp = "f4525c88-1ef2-4316-884a-0f9ae93fcfa4",
                             TwoFactorEnabled = false,
                             UserName = "admin@izkustvolandia.com"
                         },
                         new
                         {
-                            Id = "74d0cc4a-b6a8-4668-8c85-91192aa00a1b",
+                            Id = "42b8b9b7-65cb-4677-a2dd-3daaf8c918e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab285561-1d09-48e1-bc75-ddcab4bc4bee",
+                            ConcurrencyStamp = "c694483a-0bbe-4d77-8aec-5549cbe937aa",
                             Email = "user@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -420,9 +420,9 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "USER@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELKoC4tuloV1ZZNx7lDr3JGH9ldAwgIvKyYSn+knjdXd+EBVJnsI7XAQF+5okbcLxw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAZTmm4EMWpCii22VZVKFLxfDcleBcsCl0g90rbZ7tuMUb0c7D+MEUWUPN0VoJFOIQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1f2d9b2b-8cb7-4c2e-a774-a213484b3a6d",
+                            SecurityStamp = "e13df864-4de3-4736-b0a7-f6eed88a6e93",
                             TwoFactorEnabled = false,
                             UserName = "user@izkustvolandia.com"
                         });
@@ -457,8 +457,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c33afb28-cd4f-4183-975b-f0d2d04136e3",
-                            ConcurrencyStamp = "c33afb28-cd4f-4183-975b-f0d2d04136e3",
+                            Id = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91",
+                            ConcurrencyStamp = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -555,8 +555,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "a15fa3a7-600c-4d8c-aaff-d8ac32f13fa0",
-                            RoleId = "c33afb28-cd4f-4183-975b-f0d2d04136e3"
+                            UserId = "e166b00e-c141-4b0d-86cb-00b39f5146a1",
+                            RoleId = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91"
                         });
                 });
 

@@ -67,10 +67,10 @@
     <div class="breadcrumb-area bg-image-3 ptb-150">
         <div class="container">
             <div class="breadcrumb-content text-center">
-                <h3>SHOP PAGE</h3>
+                <h3>Магазин</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">SHOP PAGE</li>
+                    <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                    <li class="active">Магазин</li>
                 </ul>
             </div>
         </div>
@@ -160,20 +160,43 @@
                                         </div>
                                         <div class="product-list-details">
                                             <h4>
-                                                <a href="product-details.html">Nature Close Tea</a>
+                                                <a asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a>
                                             </h4>
                                             <div class="product-price-wrapper">
-                                                <span>$100.00</span>
-                                                <span class="product-price-old">$120.00 </span>
+                                                <span>@product.Price лв.</span>
                                             </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                            <div class="shop-list-cart-wishlist">
-                                                <a href="#" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
-                                                <a href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                    <i class="ion-ios-search-strong"></i>
+                                            <p>@product.Description</p>
+                                            <span>Автор: @product.Author</span>
+                                            <br/>
+                                            <span class="product-name">
+                                                Жанр: 
+                                                @string.Join(", ", product.Genres.Select(g => g.Name))
+                                            </span>
+                                            <br/>
+                                            <span class="product-name">
+                                                Техники на рисуване: 
+                                                @string.Join(", ", product.DrawingTechniques.Select(dt => dt.Name))
+                                            </span>
+                                            <div style="margin-top: 30px">
+                                                <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
+                                                    Разгледай
                                                 </a>
                                             </div>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                @if (product.ProductInCart)
+                                                {
+                                                    <div class="cart-hover">
+                                                        <h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
+                                                    </div>
+                                                }
+                                                @if (!product.ProductInCart)
+                                                {
+                                                    <div class="cart-hover">
+                                                        <h4><a asp-action="AddToCart" asp-route-productId="@product.ProductId">+ Добави в количка</a></h4>
+                                                    </div>
+                                                }
+                                            }
                                         </div>
                                     </div>
                                     </div>

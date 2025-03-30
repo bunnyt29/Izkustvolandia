@@ -68,30 +68,26 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="product-details-img">
-                        @foreach (var imageUrl in @Model.ImageUrls)
+                        <img id="mainImage"
+                             class="zoompro"
+                             src="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
+                             data-zoom-image="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
+                             alt="Продуктова снимка" />
+                        
+                        @if (Model.ImageUrls.Count > 1)
                         {
-                            <img class="zoompro" src="~/Image/product-images/@imageUrl" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg" alt="zoom"/>
+                            <div id="gallery" class="mt-20 owl-carousel">
+                                @foreach (var imageUrl in Model.ImageUrls)
+                                {
+                                    var fullImagePath = Url.Content("~/Image/product-images/" + imageUrl);
+                                    <a href="#"
+                                       data-image="@fullImagePath"
+                                       data-zoom-image="@fullImagePath">
+                                        <img src="@fullImagePath" alt="thumb" height="80px" style="object-fit: cover"/>
+                                    </a>
+                                }
+                            </div>
                         }
-                        @* <div id="gallery" class="mt-20 product-dec-slider owl-carousel"> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l1.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s1.jpg" alt=""> *@
-                        @*     </a> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l2.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl2.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s2.jpg" alt=""> *@
-                        @*     </a> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l3.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl3.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s3.jpg" alt=""> *@
-                        @*     </a> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l4.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl4.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s4.jpg" alt=""> *@
-                        @*     </a> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l5.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl5.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s5.jpg" alt=""> *@
-                        @*     </a> *@
-                        @*     <a data-image="assets/img/product-details/product-detalis-l2.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl2.jpg"> *@
-                        @*         <img src="assets/img/product-details/product-detalis-s2.jpg" alt=""> *@
-                        @*     </a> *@
-                        @* </div> *@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 d-flex align-items-center">
