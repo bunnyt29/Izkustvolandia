@@ -295,7 +295,7 @@ namespace Izkustvolandia.Data.Migrations
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageUrls")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -392,9 +392,9 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "50bd6775-85d1-4947-9bd8-359a4b4293ef",
+                            Id = "a15fa3a7-600c-4d8c-aaff-d8ac32f13fa0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a56b6655-817e-47da-acd3-f053acda7ba0",
+                            ConcurrencyStamp = "327197d5-3f76-48b5-af12-0dcf3fd9b19a",
                             Email = "admin@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -402,17 +402,17 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "ADMIN@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENsGOeCxp4rMyJqopVTPEc42VJN8gJnvQ2hSDeZ6EEp7zULUDru0HKdJ88vMvWBLOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELpFdbTPmvo/Ya3WKpP3o1aYJp/E+FwrAmr8WDdaTLPkybmlEBEDBkcJmCmTWGCuNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96aa3ccb-128f-49af-81b8-1c2f8e6b3b74",
+                            SecurityStamp = "92671f55-a360-4e47-92fc-e028c3bf05ed",
                             TwoFactorEnabled = false,
                             UserName = "admin@izkustvolandia.com"
                         },
                         new
                         {
-                            Id = "e5814873-b2fb-4cfd-bce5-49982d64eadc",
+                            Id = "74d0cc4a-b6a8-4668-8c85-91192aa00a1b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "992b2384-10dc-4039-9fd0-528cabf2d1f8",
+                            ConcurrencyStamp = "ab285561-1d09-48e1-bc75-ddcab4bc4bee",
                             Email = "user@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -420,9 +420,9 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "USER@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEESRWCXYspOSsrcEwI+OBag1v4TXTmKptUbudJuuG4h6AM1w5tIWWdEQQjjZfrFGCA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELKoC4tuloV1ZZNx7lDr3JGH9ldAwgIvKyYSn+knjdXd+EBVJnsI7XAQF+5okbcLxw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8b22cb7c-4fd9-4b2e-89cf-4b59e509d4d1",
+                            SecurityStamp = "1f2d9b2b-8cb7-4c2e-a774-a213484b3a6d",
                             TwoFactorEnabled = false,
                             UserName = "user@izkustvolandia.com"
                         });
@@ -457,8 +457,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c746d689-e53c-4a2b-86b5-3dbf740e78e1",
-                            ConcurrencyStamp = "c746d689-e53c-4a2b-86b5-3dbf740e78e1",
+                            Id = "c33afb28-cd4f-4183-975b-f0d2d04136e3",
+                            ConcurrencyStamp = "c33afb28-cd4f-4183-975b-f0d2d04136e3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -555,8 +555,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "50bd6775-85d1-4947-9bd8-359a4b4293ef",
-                            RoleId = "c746d689-e53c-4a2b-86b5-3dbf740e78e1"
+                            UserId = "a15fa3a7-600c-4d8c-aaff-d8ac32f13fa0",
+                            RoleId = "c33afb28-cd4f-4183-975b-f0d2d04136e3"
                         });
                 });
 

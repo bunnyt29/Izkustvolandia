@@ -77,7 +77,10 @@
                                                         <tr>
                                                             <td>
                                                                 <div class="o-pro-dec d-flex align-items-center gap-50">
-                                                                    <img style="width: 100px; height: 100px; margin-right: 50px" src="~/Image/product-images/@product.ImageUrl" alt="Снимка" />
+                                                                    @foreach (var image in product.ImageUrls)
+                                                                    {
+                                                                        <img style="width: 100px; height: 100px; margin-right: 50px" src="~/Image/product-images/@image" alt="Снимка"/> 
+                                                                    }
                                                                     <div>
                                                                         <p>@product.Name</p>
                                                                         <p>@product.Description</p>

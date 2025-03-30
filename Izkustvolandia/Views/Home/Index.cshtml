@@ -28,7 +28,7 @@
 			            <div class="product-wrapper">
 				            <div class="product-img">
 					            <a asp-action="Details" asp-route-id="@product.ProductId">
-						            <img alt="" src="~/Image/product-images/@product.ImageUrl">
+						            <img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
 					            </a>
 					            <div class="product-action">
 						            <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
@@ -113,7 +113,7 @@
 					@foreach (var painting in Model.Take(8))
 					{
 						<div class="masonry-item">
-							<img src="Image/product-images/@painting.ImageUrl" alt="Картина" class="img-fluid rounded shadow-sm"/>
+							<img src="Image/product-images/@painting.ImageUrls.First()" alt="Картина" class="img-fluid rounded shadow-sm"/>
 						</div>
 					}
 				</div>

@@ -27,7 +27,7 @@ public class HomeController : Controller
                 ProductId = p.ProductId,
                 Name = p.Name,
                 Description = p.Description,
-                ImageUrl = p.ImageUrl,
+                ImageUrls = p.ImageUrls,
                 Author = p.Author,
                 Width = p.Width,
                 Height = p.Height,

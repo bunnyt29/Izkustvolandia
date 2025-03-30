@@ -5,10 +5,8 @@ namespace Izkustvolandia.Models.Products;
 public class ProductViewModel
 {
     public int ProductId { get; set; }
-    
-    public IFormFile? Image { get; set; }
-    
-    public string ImageUrl { get; set; }
+
+    public List<string> ImageUrls { get; set; } = new();
     
     public string Name { get; set; }
     

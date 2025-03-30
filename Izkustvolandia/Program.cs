@@ -54,4 +54,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+MigrateDatabase();
+
 app.Run();
+
+void MigrateDatabase()
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<IzkustvolandiaDbContext>();
+    context.Database.Migrate();
+}

@@ -37,7 +37,7 @@
                     {
                         <tr>
                             <td class="text-center">
-                                <img src="~/Image/product-images/@item.ImageUrl" alt="@item.Name" style="height: 60px; object-fit: cover;">
+                                <img src="~/Image/product-images/@item.ImageUrls.First()" alt="@item.Name" style="height: 60px; object-fit: cover;">
                             </td>
                             <td>@Html.DisplayFor(modelItem => item.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Description)</td>
@@ -117,7 +117,7 @@
                                         <div class="product-wrapper">
                                         <div class="product-img">
                                             <a asp-action="Details" asp-route-id="@product.ProductId">
-                                                <img alt="product" src="~/Image/product-images/@product.ImageUrl">
+                                                <img alt="product" src="~/Image/product-images/@product.ImageUrls.First()">
                                             </a>
                                             <div class="product-action">
                                                 <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
