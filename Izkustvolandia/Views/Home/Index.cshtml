@@ -19,140 +19,156 @@
 		</div>
 
 		<!-- Slider End -->
-		<!-- Product Area Start -->
-        <div class="product-area bg-image-1 pt-100 pb-95">
-            <div class="container">
-	            <div class="featured-product-active hot-flower owl-carousel product-nav row">
-		            @foreach (var product in Model)
-		            {
-			            <div class="product-wrapper">
-				            <div class="product-img">
-					            <a asp-action="Details" asp-route-id="@product.ProductId">
-						            <img alt="" src="~/Image/product-images/@product.ImageUrl">
-					            </a>
-					            <div class="product-action">
-						            <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
-							            Разгледай
-						            </a>
-					            </div>
-				            </div>
-				            <div class="product-content text-left">
-					            <div class="product-hover-style">
-						            <div class="product-title">
-							            <h4>
-								            <a href="product-details.html">@product.Name</a>
-							            </h4>
-						            </div>
-						            @if (User.Identity.IsAuthenticated)
-						            {
-							            @if (product.ProductInCart)
-							            {
-								            <div class="cart-hover">
-									            <h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
-								            </div>
-							            }
-							            @if (!product.ProductInCart)
-							            {
-								            <div class="cart-hover">
-									            <h4><a asp-action="AddToCart" asp-route-productId="@product.ProductId">+ Добави в количка</a></h4>
-								            </div>
-							            }
-						            }
-						            @if (!User.Identity.IsAuthenticated)
-						            {
-							            <div class="cart-hover">
-								            <h4>Автор: @product.Author</h4>
-							            </div>
-						            }
-					            </div>
-					            <div class="product-price-wrapper">
-						            <span>@product.Price</span>
-					            </div>
-				            </div>
-			            </div>
-		            }
-	            </div>
-            </div>
-        </div>
-		<!-- Product Area End -->
 
-		<section class="py-5 bg-white">
+		<section class="position-relative py-5" style="height: 700px; background-color: #fdfdfd; margin-top: 100px">
 			<style>
-				.masonry-gallery {
-					column-count: 4;
-					column-gap: 1rem;
-				}
-
-				.masonry-item {
-					break-inside: avoid;
-					margin-bottom: 1rem;
-				}
-
-				.masonry-item img {
+				.floating-gallery {
+					position: relative;
 					width: 100%;
-					height: auto;
-					display: block;
-					border-radius: 8px;
-					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-					transition: transform 0.3s ease, box-shadow 0.3s ease;
+					height: 100%;
 				}
 
-				.masonry-item img:hover {
-					transform: scale(1.03);
-					cursor: pointer;
-					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				.floating-img {
+					position: absolute;
+					border-radius: 8px;
+					box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+					transition: transform 0.3s ease;
+					object-fit: cover;
+				}
+
+				.floating-img:hover {
+					transform: scale(1.05) rotate(1deg);
+					z-index: 2;
 				}
 			</style>
-			<div class="container">
-				<div class="text-center mb-4">
-					<h2 class="font-weight-bold">Галерия от Картини</h2>
-					<p class="text-muted">Потопи се в магията на изкуството</p>
-				</div>
 
-				<div class="masonry-gallery">
-					@foreach (var painting in Model.Take(8))
+			<div class="container text-center mb-4">
+				<h2 class="font-weight-bold">Хаосът на изкуството</h2>
+				<p class="text-muted">Разгледай картините, подредени от самото въображение.</p>
+			</div>
+
+			<div class="floating-gallery">
+				@{
+					var images = Model.Take(8).ToList(); 
+					var positions = new[]
 					{
-						<div class="masonry-item">
-							<img src="Image/product-images/@painting.ImageUrl" alt="Картина" class="img-fluid rounded shadow-sm"/>
+						new { top = "20px", left = "5%" },
+						new { top = "100px", left = "35%" },
+						new { top = "50px", left = "70%" },
+						new { top = "220px", left = "15%" },
+						new { top = "300px", left = "45%" },
+						new { top = "180px", left = "80%" },
+						new { top = "400px", left = "25%" },
+						new { top = "480px", left = "60%" }
+					};
+				}
+
+				@for (int i = 0; i < images.Count; i++)
+				{
+					<img src="Image/product-images/@images[i].ImageUrl"
+					     alt="Картина"
+					     class="floating-img"
+					     style="width: 250px; height: 250px; top: @positions[i].top; left: @positions[i].left;" />
+				}
+			</div>
+		</section>
+		<!-- Product Area Start -->
+		<div class="product-area bg-image-1 pt-100 pb-95" style="margin-top: 200px">
+			<div class="container">
+				<div class="container text-center mb-4">
+					<h2 class="font-weight-bold">Нови продукти</h2>
+					<p class="text-muted">Разгледай най-новите ни творения!</p>
+				</div>
+				
+				<div class="featured-product-active hot-flower owl-carousel product-nav row">
+					@foreach (var product in Model.Take(4))
+					{
+						<div class="product-wrapper">
+							<div class="product-img">
+								<a asp-action="Details" asp-route-id="@product.ProductId">
+									<img alt="" src="~/Image/product-images/@product.ImageUrl">
+								</a>
+								<div class="product-action">
+									<a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
+										Разгледай
+									</a>
+								</div>
+							</div>
+							<div class="product-content text-left">
+								<div class="product-hover-style">
+									<div class="product-title">
+										<h4>
+											<a href="product-details.html">@product.Name</a>
+										</h4>
+									</div>
+									@if (User.Identity.IsAuthenticated)
+									{
+										@if (product.ProductInCart)
+										{
+											<div class="cart-hover">
+												<h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
+											</div>
+										}
+										@if (!product.ProductInCart)
+										{
+											<div class="cart-hover">
+												<h4><a asp-action="AddToCart" asp-route-productId="@product.ProductId">+ Добави в количка</a></h4>
+											</div>
+										}
+									}
+									@if (!User.Identity.IsAuthenticated)
+									{
+										<div class="cart-hover">
+											<h4>Автор: @product.Author</h4>
+										</div>
+									}
+								</div>
+								<div class="product-price-wrapper">
+									<span>@product.Price</span>
+								</div>
+							</div>
 						</div>
 					}
 				</div>
 			</div>
-		</section>
-
+		</div>
+		<!-- Product Area End -->
 		<!-- Testimonial Area Start -->
         <div class="testimonials-area bg-img pt-100 pb-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <div class="testimonial-active owl-carousel">
-                            <div class="single-testimonial text-center">
-                                <div class="testimonial-img">
-                                    <img alt="" src="assets/img/icon-img/testi.png">
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore</p>
-                                <h4>Gregory Perkins</h4>
-								<h5>Customer</h5>
-                            </div>
-                            <div class="single-testimonial text-center">
-                                <div class="testimonial-img">
-                                    <img alt="" src="assets/img/icon-img/testi.png">
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore</p>
-                                <h4>Khabuli Teop</h4>
-								<h5>Marketing</h5>
-                            </div>
-                            <div class="single-testimonial text-center">
-                                <div class="testimonial-img">
-                                    <img alt="" src="assets/img/icon-img/testi.png">
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore </p>
-                                <h4>Lotan Jopon</h4>
-								<h5>Admin</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	        <div class="container">
+		        <div class="container text-center mb-4">
+			        <h2 class="font-weight-bold">Какво казват за нас?</h2>
+		        </div>
+		        <div class="row">
+			        <div class="col-lg-12 col-md-12 col-12">
+				        <div class="testimonial-active owl-carousel">
+					        <div class="single-testimonial text-center">
+						        <div class="testimonial-img">
+							        <img alt="" src="Image/testi.png">
+						        </div>
+						        <p>Невероятно преживяване – усеща се личното отношение и страстта зад всяко произведение.</p>
+						        <h4>Ивайло Иванов</h4>
+						        <h5>Собственик на галерия</h5>
+					        </div>
+					        <div class="single-testimonial text-center">
+						        <div class="testimonial-img">
+							        <img alt="" src="Image/testi.png">
+						        </div>
+						        <p>Перфектен подарък! Красиво опаковано и изпратено навреме. Препоръчвам с две ръце!</p>
+						        <h4>Мариела Ковачева</h4>
+						        <h5>Клиент</h5>
+					        </div>
+					        <div class="single-testimonial text-center">
+						        <div class="testimonial-img">
+							        <img alt="" src="Image/testi.png">
+						        </div>
+						        <p>Бях изненадан от качеството и вниманието към детайла. Всяка картина носи душа и настроение!</p>
+						        <h4>Георги Петров</h4>
+						        <h5>Клиент</h5>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
         </div>
 		<!-- Testimonial Area End -->

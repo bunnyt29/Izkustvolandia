@@ -21,7 +21,7 @@ public class HomeController : Controller
         var products = await _context.Products
             .Include(p => p.Genres)
             .Include(p => p.DrawingTechniques)
-            .Take(4)
+            .Take(9)
             .Select(p => new DetailsProductViewModel()
             {
                 ProductId = p.ProductId,
@@ -44,6 +44,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Contact()
+    {
+        return View();
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -1,18 +1,100 @@
-﻿@model TModel
-
-@{
-    Layout = null;
+﻿@{
+    ViewData["Title"] = "Контакти";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+        <div class="breadcrumb-area bg-image-3 ptb-150">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+					<h3>Контак</h3>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                        <li class="active">Свържи се с нас!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<!-- Breadcrumb Area End -->
+		<!-- Contact Area Start -->
+        <div class="contact-us ptb-95">
+            <div class="container">
+                <div class="row">
+					<!-- Contact Form Area Start -->
+					<div class="col-lg-6">
+						<div class="small-title mb-30">
+							<h2>Контактна форма</h2>
+							<p>Свържи се с нас, ако имаш нужда от допълнителна информация, пояснения или се нуждаеш от помощ за твоята поръчка!</p>
+						</div>
+						<form id="contact-form" action="https://d29u17ylf1ylz9.cloudfront.net/sabujcha/assets/mail.php" method="post">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="contact-form-style mb-20">
+										<input name="name" placeholder="Пълно име" type="text">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="contact-form-style mb-20">
+										<input name="email" placeholder="Имей адрес" type="email">
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="contact-form-style mb-20">
+										<input name="subject" placeholder="Съобщение..." type="text">
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="contact-form-style">
+										<textarea name="message" placeholder="Message"></textarea>
+										<button class="submit" type="submit">Изпрати</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						<p class="form-messege"></p>
+					</div>
+					<!-- Contact Form Area End -->
+					<!-- Contact Address Strat -->
+					<div class="col-lg-6">
+						<div class="small-title mb-30">
+							<h2>Contact Address</h2>
+							<p>There are many variations of passages of Lorem Ipsum available, but the majority Lorem Ipsum available.</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="contact-information mb-30">
+									<h4>Our Address</h4>
+									<p>House. 9, Road. 12, Widgets. Orled. Sydney. Milaro.</p>
+								</div>
+							</div>
+							<div class="col-lg-12 col-md-12">
+								<div class="contact-information contact-mrg mb-30">
+									<h4>Phone Number</h4>
+									<p>
+										<a href="tel:01234567890">01234 567 890</a>
+										<a href="tel:01234567891">01234 567 891</a>
+									</p>
+								</div>
+							</div>
+							<div class="col-lg-12 col-md-12">
+								<div class="contact-information contact-mrg mb-30">
+									<h4>Web Address</h4>
+									<p>
+										<a href="mailto:info@example.com">info@example.com</a>
+										<a href="#">www.example.com</a>
+									</p>
+								</div>
+							</div>
+						</div>
+                    </div>
+					<!-- Contact Address Strat -->
+					<!-- Google Map Start -->
+					<div class="col-md-12">
+						<div id="store-location">
+							<div class="contact-map pt-80">
+								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+					<!-- Google Map Start -->
+                </div>
+            </div>
+        </div>
