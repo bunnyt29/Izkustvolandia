@@ -2,7 +2,7 @@
 
 namespace Izkustvolandia.Models.Products;
 
-public class DetailsProductViewModel
+public class ProductViewModel
 {
     public int ProductId { get; set; }
     
@@ -31,6 +31,4 @@ public class DetailsProductViewModel
     public ICollection<Genre> Genres { get; set; } = new HashSet<Genre>();
     
     public ICollection<DrawingTechnique> DrawingTechniques { get; set; } = new HashSet<DrawingTechnique>();
-    
-    public ICollection<ProductViewModel> SimilarProducts { get; set; } = new HashSet<ProductViewModel>();
 }

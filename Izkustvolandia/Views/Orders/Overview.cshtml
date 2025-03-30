@@ -1,79 +1,122 @@
 @model Izkustvolandia.Models.Orders.CreateOrderInputModel
 
-<section class="page-header">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="content">
-					<h1 class="page-name">Поръчка</h1>
-					<ol class="breadcrumb">
-						<li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-						<li class="active">Поръчка</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<div class="page-wrapper">
-    <div class="checkout shopping">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="block billing-details">
-                        <h4 class="widget-title">Информация за клиента</h4>
-                        <form class="checkout-form" asp-action="Create" method="post">
-                            <input type="hidden" asp-for="TotalPrice">
+<div class="checkout-area pb-80 pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="checkout-wrapper">
+                    <div id="faq" class="panel-group">
 
-                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                            <div class="form-group">
-                                <label>Телефонен номер</label>
-                                <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="">
-                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <!-- Billing Information Panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title"><span>1.</span>
+                                    <a data-toggle="collapse" data-parent="#faq" href="#payment-1" class="collapsed">
+                                        Информация за клиента
+                                    </a>
+                                </h5>
                             </div>
-                            <div class="form-group">
-                                <label>Адрес</label>
-                                <input type="text" class="form-control" asp-for="Address" placeholder="">
-                                <span asp-validation-for="Address" class="text-danger"></span>
-                            </div>
-                            <div id="cf-submit">
-                                <button type="submit" class="btn btn-success">
-                                    Поръчай
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-checkout-details">
-                        <div class="block">
-                            <h4 class="widget-title">Поръчка</h4>
-                            @foreach (var product in Model.Products)
-                            {
-                                <div class="media product-card" style="display: flex; gap: 20px">
-                                    <img style="width: 200px; height: 200px" class="media-object" src="~/Images/@product.ImageUrl" alt="Снимка на продукта" />
-                                
-                                    <div class="media-body">
-                                        <h4 class="media-heading">@product.Name</h4>
+                            <div id="payment-1" class="panel-collapse collapse show">
+                                <div class="panel-body">
+                                    <div class="billing-information-wrapper">
+                                        <form asp-action="Create" method="post">
+                                            <input type="hidden" asp-for="TotalPrice" />
+
+                                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="billing-info">
+                                                        <label>Телефонен номер</label>
+                                                        <input class="form-control" asp-for="PhoneNumber" />
+                                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="billing-info">
+                                                        <label>Адрес</label>
+                                                        <input class="form-control" asp-for="Address" />
+                                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="billing-back-btn mt-3 d-flex justify-content-between align-items-center">
+                                                <a asp-controller="Products" asp-action="Cart"><i class="ion-arrow-up-c"></i> Назад към количката</a>
+                                                <button type="submit" class="btn btn-success">Поръчай</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            }
-							
-                            <ul class="summary-prices">
-                                <li>
-                                    <span>Данъчна основа:</span>
-                                    <span class="price">@Math.Round(Model.TotalPrice * 80 / 100, 2) лв.</span>
-                                </li>
-                                <li>
-                                    <span>ДДС:</span>
-                                    <span class="price">@Math.Round(Model.TotalPrice * 20 / 100, 2) лв.</span>
-                                </li>
-                            </ul>
-                            <div class="summary-total">
-                                <span>Общо</span>
-                                <span>@Model.TotalPrice лв.</span>
                             </div>
                         </div>
+
+                        <!-- Order Review Panel -->
+                        <div class="panel panel-default mt-4">
+                            <div class="panel-heading">
+                                <h5 class="panel-title"><span>2.</span>
+                                    <a data-toggle="collapse" data-parent="#faq" href="#payment-2" class="collapsed">
+                                        Преглед на поръчката
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="payment-2" class="panel-collapse collapse show">
+                                <div class="panel-body">
+                                    <div class="order-review-wrapper">
+                                        <div class="order-review">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Продукт</th>
+                                                        <th>Цена</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach (var product in Model.Products)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <div class="o-pro-dec d-flex align-items-center gap-50">
+                                                                    <img style="width: 100px; height: 100px; margin-right: 50px" src="~/Image/product-images/@product.ImageUrl" alt="Снимка" />
+                                                                    <div>
+                                                                        <p>@product.Name</p>
+                                                                        <p>@product.Description</p>
+                                                                        <p>Автор: @product.Author</p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="o-pro-price">
+                                                                    <p>@product.Price лв.</p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td>Данъчна основа</td>
+                                                        <td>@Math.Round(Model.TotalPrice * 0.80M, 2) лв.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ДДС (20%)</td>
+                                                        <td>@Math.Round(Model.TotalPrice * 0.20M, 2) лв.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Общо</strong></td>
+                                                        <td><strong>@Model.TotalPrice лв.</strong></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                            <div class="billing-back-btn d-flex justify-content-end">
+                                                <span class="me-3">Забравихте нещо? <a asp-controller="Products" asp-action="All">Редактирайте количката</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end order review -->
                     </div>
                 </div>
             </div>

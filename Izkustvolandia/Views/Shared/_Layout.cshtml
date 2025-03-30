@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="~/css/ionicons.min.css">
     <link rel="stylesheet" href="~/css/jquery-ui.css">
     <link rel="stylesheet" href="~/css/meanmenu.min.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="~/css/site.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -99,10 +99,10 @@
                             </div>
                         }
 
-                        if (User.IsInRole("User"))
+                        if (User.Identity.IsAuthenticated)
                         {
                             <div class="header-cart">
-                                <a href="#">
+                                <a asp-controller="Products" asp-action="Cart">
                                     <div class="cart-icon">
                                         <i class="ti-shopping-cart"></i>
                                     </div>
@@ -260,108 +260,21 @@
     </div>
 </header>
 
-@RenderBody()
+<div class="main-content">
+    @RenderBody()
+</div>
 
-<footer class="footer-area pt-75 gray-bg-3">
-    <div class="footer-top gray-bg-3 pb-35">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer-widget mb-40">
-                        <div class="footer-title mb-25">
-                            <h4>My Account</h4>
-                        </div>
-                        <div class="footer-content">
-                            <ul>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="about-us.html">Order History</a></li>
-                                <li><a href="wishlist.html">WishList</a></li>
-                                <li><a href="#">Newsletter</a></li>
-                                <li><a href="about-us.html">Order History</a></li>
-                                <li><a href="#">International Orders</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer-widget mb-40">
-                        <div class="footer-title mb-25">
-                            <h4>Information</h4>
-                        </div>
-                        <div class="footer-content">
-                            <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="#">Delivery Information</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Customer Service</a></li>
-                                <li><a href="#">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer-widget mb-40">
-                        <div class="footer-title mb-25">
-                            <h4>Quick Links</h4>
-                        </div>
-                        <div class="footer-content">
-                            <ul>
-                                <li><a href="#">Support Center</a></li>
-                                <li><a href="#">Term & Conditions</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Help</a></li>
-                                <li><a href="#">FAQS</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer-widget footer-widget-red footer-black-color mb-40">
-                        <div class="footer-title mb-25">
-                            <h4>Contact Us</h4>
-                        </div>
-                        <div class="footer-about">
-                            <p>Your current address goes to here,120 haka, angladesh</p>
-                            <div class="footer-contact mt-20">
-                                <ul>
-                                    <li>(+008) 254 254 254 25487</li>
-                                    <li>(+009) 358 587 657 6985</li>
-                                </ul>
-                            </div>
-                            <div class="footer-contact mt-20">
-                                <ul>
-                                    <li>yourmail@example.com</li>
-                                    <li>example@admin.com</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<footer class="footer-area bg-light text-dark py-3 mt-auto">
+    <div class="container text-center">
+        <div class="mb-2">
+            <a asp-controller="Home" asp-action="Index" class="mx-2 text-dark text-decoration-none">Начало</a>
+            <a asp-controller="Products" asp-action="All" class="mx-2 text-dark text-decoration-none">Магазин</a>
+            <a asp-controller="Home" asp-action="Contact" class="mx-2 text-dark text-decoration-none">Контакт</a>
         </div>
-    </div>
-    <div class="footer-bottom pb-25 pt-25 gray-bg-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="copyright">
-                        <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="payment-img f-right">
-                        <a href="#">
-                            <img alt="" src="assets/img/icon-img/payment.png">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <small class="d-block">© @DateTime.Now.Year Изкустволандия. Създадено от Николай Василев.</small>
     </div>
 </footer>
-<script src="~/js/site.js" asp-append-version="true"></script>
+
 <!-- all js here -->
 <script src="~/js/vendor/jquery-1.12.0.min.js"></script>
 <script src="~/js/popper.js"></script>
@@ -371,8 +284,9 @@
 <script src="~/js/ajax-mail.js"></script>
 <script src="~/js/owl.carousel.min.js"></script>
 <script src="~/js/plugins.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="~/js/site.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

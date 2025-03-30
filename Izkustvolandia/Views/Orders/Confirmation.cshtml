@@ -1,12 +1,16 @@
-<section class="page-wrapper success-msg">
+<section class="page-wrapper success-msg d-flex align-items-center justify-content-center" style="min-height: 80vh;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="block text-center">
-                    <i class="tf-ion-android-checkmark-circle"></i>
-                    <h2 class="text-center">Благодарим ти!</h2>
-                    <p>Поръчката ти се обработва и съвсем скоро ще бъде при теб!</p>
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-main mt-20">Върни се към началото</a>
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="block p-5 rounded shadow bg-white">
+                    <div class="mb-4">
+                        <i class="tf-ion-android-checkmark-circle text-success" style="font-size: 80px;"></i>
+                    </div>
+                    <h2 class="text-success mb-3">Благодарим ти!</h2>
+                    <p class="mb-4">Поръчката ти се обработва и съвсем скоро ще бъде при теб!</p>
+                    <div>
+                        <a asp-controller="Home" asp-action="Index" class="btn primary-button px-4 py-2">Върни се към началото</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,78 +1,79 @@
 ﻿@using Izkustvolandia.Domain
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<Izkustvolandia.Models.Products.DetailsProductViewModel>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Количка</h1>
+<div class="cart-main-area ptb-100">
+    <div class="container">
+        <h3 class="page-title">Вашите артикули в количката</h3>
+        <div class="row">
+            <!-- Table Column -->
+            <div class="col-lg-8 col-md-12">
+                <form>
+                    <div class="table-content table-responsive">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Продукт</th>
+                                <th>Заглавие</th>
+                                @* <th>Жанр</th> *@
+                                @* <th>Техники на рисуване</th> *@
+                                <th>Цена</th>
+                                <th>Изтрий</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="#"><img src="~/Image/product-images/@item.ImageUrl" alt="" style="width: 80px; height: 80px;" /></a>
+                                    </td>
+                                    <td class="product-name">@item.Name</td>
+                                    @* <td class="product-name"> *@
+                                    @*     <span>@string.Join(", ", item.Genres.Select(g => g.Name))</span> *@
+                                    @* </td> *@
+                                    @* <td class="product-name"> *@
+                                    @*     <span>@string.Join(", ", item.DrawingTechniques.Select(dt => dt.Name))</span> *@
+                                    @* </td> *@
+                                    <td class="product-price-cart"><span class="amount">@item.Price лв.</span></td>
+                                    <td class="product-remove">
+                                        <a asp-action="RemoveFromCart" asp-route-id="@item.ProductId"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-shiping-update-wrapper mt-4">
+                        <div class="cart-shiping-update">
+                            <a asp-controller="Products" asp-action="All">Продължи с пазаруването</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-<p>
-    <a asp-action="Create">Количка</a>
-</p>
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Width)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Height)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DrawingTechniques)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <img style="width: 80px; height: 80px" src="~/Images/@item.ImageUrl" alt="">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Width)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Height)
-            </td>
-            <td>
-                @String.Join(", ", @item.Genres.Select(g => g.Name))
-            </td>
-            <td>
-                @String.Join(", ", @item.DrawingTechniques.Select(dt => dt.Name))
-            </td>
-            <td>
-                <a class="btn btn-danger" asp-action="RemoveFromCart" asp-route-id="@item.ProductId">X</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<div class="row">
-    <a class="btn btn-danger" asp-controller="Orders" asp-action="Overview">Поръчай</a>
+            <!-- Grand Total Column -->
+            <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
+                <div class="grand-totall">
+                    <div class="title-wrap">
+                        <h4 class="cart-bottom-title section-bg-gary-cart">Обща сума</h4>
+                    </div>
+                    <h5>Общо продукти <span>@Model.Sum(p => p.Price) лв.</span></h5>
+                    <div class="total-shipping">
+                        <h5>Доставка</h5>
+                        <ul>
+                            <li><input type="checkbox" /> Стандартна <span>5.00 лв.</span></li>
+                            <li><input type="checkbox" /> Експресна <span>10.00 лв.</span></li>
+                        </ul>
+                    </div>
+                    <h4 class="grand-totall-title">Общо <span>@(Model.Sum(p => p.Price) + 5.00M) лв.</span></h4>
+                    <a asp-controller="Orders" asp-action="Overview">Премини към поръчка</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

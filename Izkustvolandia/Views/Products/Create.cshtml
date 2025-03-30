@@ -36,14 +36,14 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label asp-for="Author" class="control-label"></label>
+                            <label asp-for="Author" class="control-label">в см.</label>
                             <input asp-for="Author" class="form-control" />
                             <span asp-validation-for="Author" class="text-danger"></span>
                         </div>
 
                         <div class="form-row mb-3">
                             <div class="col">
-                                <label asp-for="Width" class="control-label"></label>
+                                <label asp-for="Width" class="control-label">в см.</label>
                                 <input asp-for="Width" class="form-control" />
                                 <span asp-validation-for="Width" class="text-danger"></span>
                             </div>
@@ -62,7 +62,7 @@
 
                         <div class="form-group mb-3">
                             <label for="Genres">Жанрове</label>
-                            <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds[]">
+                            <select asp-for="GenreIds" class="form-control js-example-basic-multiple" multiple="multiple" name="GenreIds">
                                 @foreach (Genre genre in ViewBag.Genres)
                                 {
                                     <option value="@genre.GenreId">@genre.Name</option>
@@ -73,7 +73,7 @@
 
                         <div class="form-group mb-4">
                             <label for="DrawingTechniques">Техники на рисуване</label>
-                            <select asp-for="DrawingTechniqueIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds[]">
+                            <select asp-for="DrawingTechniqueIds" class="form-control js-example-basic-multiple" multiple="multiple" name="DrawingTechniqueIds">
                                 @foreach (DrawingTechnique drawingTechnique in ViewBag.DrawingTechniques)
                                 {
                                     <option value="@drawingTechnique.DrawingTechniqueId">@drawingTechnique.Name</option>

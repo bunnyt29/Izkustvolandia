@@ -8,7 +8,7 @@ public class ListingProductViewModel
     
     public ICollection<DrawingTechnique> DrawingTechniques { get; set; } = new List<DrawingTechnique>();
     
-    public ICollection<DetailsProductViewModel> Products { get; set; }
+    public ICollection<ProductViewModel> Products { get; set; }
     
     public int MinPrice { get; set; }
 

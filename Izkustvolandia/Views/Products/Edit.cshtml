@@ -20,7 +20,8 @@
 
                 <div class="form-group mb-3">
                     <label asp-for="Image" class="control-label">Снимка на продукта</label>
-                    <input asp-for="Image" class="form-control" />
+                    <input type="hidden" asp-for="ImageUrl" class="form-control" />
+                    <img src="~/Images/@Model.ImageUrl" alt="">
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
 

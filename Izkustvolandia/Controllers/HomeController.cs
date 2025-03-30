@@ -1,21 +1,42 @@
 using System.Diagnostics;
+using Izkustvolandia.Data;
 using Microsoft.AspNetCore.Mvc;
 using Izkustvolandia.Models;
+using Izkustvolandia.Models.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace Izkustvolandia.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IzkustvolandiaDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IzkustvolandiaDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var products = await _context.Products
+            .Include(p => p.Genres)
+            .Include(p => p.DrawingTechniques)
+            .Take(4)
+            .Select(p => new DetailsProductViewModel()
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                Author = p.Author,
+                Width = p.Width,
+                Height = p.Height,
+                Price = p.Price,
+                Genres = p.Genres,
+                DrawingTechniques = p.DrawingTechniques
+            })
+            .ToListAsync();
+        return View(products);
     }
 
     public IActionResult Privacy()

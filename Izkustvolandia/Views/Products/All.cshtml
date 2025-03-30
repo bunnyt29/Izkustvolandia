@@ -116,19 +116,12 @@
                                     <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
                                         <div class="product-wrapper">
                                         <div class="product-img">
-                                            <a asp-action="Details" asp-route-id="@product.ProductId" >
-                                                <img alt="" src="~/Image/product-images/@product.ImageUrl">
+                                            <a asp-action="Details" asp-route-id="@product.ProductId">
+                                                <img alt="product" src="~/Image/product-images/@product.ImageUrl">
                                             </a>
-                                            <span>-30%</span>
                                             <div class="product-action">
-                                                <a class="action-wishlist" href="#" title="Wishlist">
-                                                    <i class="ion-android-favorite-outline"></i>
-                                                </a>
-                                                <a class="action-cart" href="#" title="Add To Cart">
-                                                    <i class="ion-ios-shuffle-strong"></i>
-                                                </a>
-                                                <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                    <i class="ion-ios-search-strong"></i>
+                                                <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
+                                                    Разгледай
                                                 </a>
                                             </div>
                                         </div>
@@ -139,9 +132,27 @@
                                                         <a href="product-details.html">@product.Name</a>
                                                     </h4>
                                                 </div>
-                                                <div class="cart-hover">
-                                                    <h4><a href="product-details.html">+ Добави в количка</a></h4>
-                                                </div>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    @if (product.ProductInCart)
+                                                    {
+                                                        <div class="cart-hover">
+                                                            <h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
+                                                        </div>
+                                                    }
+                                                    @if (!product.ProductInCart)
+                                                    {
+                                                        <div class="cart-hover">
+                                                            <h4><a asp-action="AddToCart" asp-route-productId="@product.ProductId">+ Добави в количка</a></h4>
+                                                        </div>                                                    
+                                                    }
+                                                }
+                                                @if (!User.Identity.IsAuthenticated)
+                                                {
+                                                    <div class="cart-hover">
+                                                        <h4>Автор: @product.Author</h4>
+                                                    </div>
+                                                }
                                             </div>
                                             <div class="product-price-wrapper">
                                                 <span>@product.Price</span>

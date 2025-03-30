@@ -138,5 +138,12 @@ public class IzkustvolandiaDbContext : IdentityDbContext<User>
             new DrawingTechnique { DrawingTechniqueId = 8, Name = "Пастел" },
             new DrawingTechnique { DrawingTechniqueId = 9, Name = "Дигитална живопис" }
         );
+        
+        // builder.Entity<Product>().HasData(
+        //     new Product
+        //     {
+        //         
+        //     },
+        // );
     }
 }
