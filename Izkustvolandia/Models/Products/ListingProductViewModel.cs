@@ -7,4 +7,6 @@ public class ListingProductViewModel
     public ICollection<ProductViewModel> Products { get; set; }
     
     public ProductFiltersViewModel Filters { get; set; }
+    
+    public string sortedBy { get; set; }
 }

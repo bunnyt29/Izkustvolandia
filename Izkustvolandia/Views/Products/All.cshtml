@@ -1,5 +1,6 @@
 @using System.Reflection.Emit
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Label = Microsoft.Data.SqlClient.DataClassification.Label
 @model Izkustvolandia.Models.Products.ListingProductViewModel
 
 @{
@@ -91,11 +92,22 @@
                         </div>
                         <div class="product-sorting-wrapper">
                             <div class="product-show shorting-style">
-                                <label>Сортирай по:</label>
-                                <select>
-                                    <option value="">Най-ниска цена</option>
-                                    <option value="">Най-висока цена</option>
-                                </select>
+                                <form method="get" asp-action="All">
+                                    <label>Сортирай по:</label>
+                                    <select name="sortOrder" id="sortOrder">
+                                        @if (@Model.sortedBy == "desc")
+                                        {
+                                            <option value="desc">Най-висока цена</option>
+                                            <option value="asc">Най-ниска цена</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="asc">Най-ниска цена</option>
+                                            <option value="desc">Най-висока цена</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Сортирай</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -187,7 +199,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="shop-sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
-                        <form method="get" asp-controller="Products" asp-action="Filter">
+                        <form method="get" asp-action="Filter" asp-controller="Products">
                             <button type="submit" class="primary-button">Филтрирай</button>
 
                             <div class="shop-widget mt-40 shop-sidebar-border pt-35">
@@ -197,8 +209,8 @@
                                     {
                                         var isChecked = genre.Name == Model.Filters.Genre ? "checked" : "";
 
-                                        <input type="radio" id="@genre" name="Genre" value="@genre.Name" @isChecked>
-                                        <Label ></Label>
+                                        <label for="genre">@genre.Name</label>
+                                        <input type="radio" id="genre" name="Genre" value="@genre.Name" @isChecked>
 
                                     }
                                 </div>
@@ -210,7 +222,8 @@
                                             {
                                                 var isChecked = drawingTechnique.Name == Model.Filters.DrawingTechnique ? "checked" : "";
 
-                                                <input type="radio" id="@drawingTechnique" name="DrawingTechnique" value="@drawingTechnique.Name" @isChecked>
+                                                <label for="drawingTechnique">@drawingTechnique.Name</label>
+                                                <input type="radio" id="drawingTechnique" name="DrawingTechnique" value="@drawingTechnique.Name" @isChecked>
                                             }
                                         </ul>
                                     </div>

@@ -24,11 +24,13 @@ namespace Izkustvolandia.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string sortOrder)
         {
             var productListingModel = await this.GetListingProductViewModel();
 
-            productListingModel.Products = await _context.Products
+            productListingModel.sortedBy = sortOrder;
+
+            var productQuery = _context.Products
                 .Include(p => p.Genres)
                 .Include(p => p.DrawingTechniques)
                 .Select(p => new ProductViewModel()
@@ -43,8 +45,13 @@ namespace Izkustvolandia.Controllers
                     Price = p.Price,
                     Genres = p.Genres,
                     DrawingTechniques = p.DrawingTechniques
-                })
-                .ToListAsync();
+                });
+            
+            productQuery = sortOrder == "desc"
+                ? productQuery.OrderByDescending(p => p.Price)
+                : productQuery.OrderBy(p => p.Price);
+            
+            productListingModel.Products = await productQuery.ToListAsync();
             
             productListingModel.Filters.MinPrice = (int)Math.Floor(productListingModel.Products.Min(p => p.Price));
             productListingModel.Filters.MaxPrice = (int)Math.Ceiling(productListingModel.Products.Max(p => p.Price));
