@@ -122,7 +122,9 @@ public class OrdersController : Controller
                         Email = u.Email
                     })
                     .SingleOrDefault(),
-                Products = new List<DetailsProductViewModel>()
+                Products = new List<DetailsProductViewModel>(),
+                CreatedOn = o.CreatedOn,
+                DeliveryOn = o.DeliveryOn
             })
             .ToListAsync();
 
@@ -181,7 +183,9 @@ public class OrdersController : Controller
                             Email = u.Email
                         })
                         .SingleOrDefault(),
-                    Products = new List<DetailsProductViewModel>()
+                    Products = new List<DetailsProductViewModel>(),
+                    CreatedOn = o.CreatedOn,
+                    DeliveryOn = o.DeliveryOn
                 })
                 .ToListAsync();
 

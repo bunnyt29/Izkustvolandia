@@ -24,6 +24,8 @@
                                 <th>Име</th>
                                 <th>Тел. номер</th>
                                 <th>Адрес</th>
+                                <th>Дата на поръчване</th>
+                                <th>Дата на доставка</th>
                                 <th>Общо</th>
                             </tr>
                             </thead>
@@ -35,6 +37,8 @@
                                     <td>@order.User?.Name</td>
                                     <td>@order.PhoneNumber</td>
                                     <td>@order.Address</td>
+                                    <td>@order.CreatedOn</td>
+                                    <td>@order.DeliveryOn</td>
                                     <td>@order.TotalSum лв.</td>
                                 </tr>
                             }

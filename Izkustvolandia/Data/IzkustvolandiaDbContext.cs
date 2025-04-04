@@ -44,7 +44,6 @@ public class IzkustvolandiaDbContext : IdentityDbContext<User>
             .HasMany(p => p.OrderProducts)
             .WithOne(o => o.Product);
         
-        
         builder.Entity<Product>()
             .HasMany(p => p.Users)
             .WithMany(u => u.Products)

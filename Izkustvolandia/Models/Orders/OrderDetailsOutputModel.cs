@@ -16,6 +16,10 @@ public class OrderDetailsOutputModel
     public string PhoneNumber { get; set; }
 
     public decimal TotalSum { get; set; }
+    
+    public DateOnly CreatedOn { get; set; }
+    
+    public DateOnly DeliveryOn { get; set; }
 
     public List<DetailsProductViewModel> Products { get; set; }
 }
