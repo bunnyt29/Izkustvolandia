@@ -58,7 +58,7 @@
 <header class="header-area gray-bg clearfix">
     <div class="header-bottom">
         <div class="container">
-            <div class="row">
+            <div class="row flex-row align-items-center justify-content-between">
                 <div class="col-lg-3 col-md-4 col-4">
                     <div class="logo">
                         <a asp-controller="Home" asp-action="Index">
@@ -66,19 +66,22 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-8 col-6">
-                    <div class="header-bottom-right">
-                        <div class="main-menu">
-                            <nav>
-                                <ul>
-                                    <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-                                    <li><a asp-controller="Products" asp-action="All">Продукти</a></li>
-                                    <li class="top-hover"><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
-                                </ul>
-                            </nav>
+                @if (!User.IsInRole("Admin"))
+                {
+                    <div class="col-lg-5 col-md-8 col-6">
+                        <div class="header-bottom-right">
+                            <div class="main-menu">
+                                <nav>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                                        <li><a asp-controller="Products" asp-action="All">Продукти</a></li>
+                                        <li class="top-hover"><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 <div class="col-lg-4 col-md-8 col-2 d-flex align-items-center nav-left-side">
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -102,51 +105,60 @@
 
                         if (User.Identity.IsAuthenticated)
                         {
-                            <div class="header-cart">
+                            <div class="cart-icon position-relative">
                                 <a asp-controller="Products" asp-action="Cart">
-                                    <div class="cart-icon">
-                                        <i class="ti-shopping-cart"></i>
-                                    </div>
+                                    <i class="ti-shopping-cart"></i>
+                                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
                                 </a>
-                                <div class="shopping-cart-content">
-                                    <ul>
-                                        <li class="single-shopping-cart">
-                                            <div class="shopping-cart-img">
-                                                <a href="#"><img alt="" src="assets/img/cart/cart-1.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="#">Phantom Remote </a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="ion ion-close"></i></a>
-                                            </div>
-                                        </li>
-                                        <li class="single-shopping-cart">
-                                            <div class="shopping-cart-img">
-                                                <a href="#"><img alt="" src="assets/img/cart/cart-2.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="#">Phantom Remote</a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="ion ion-close"></i></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="shopping-cart-total">
-                                        <h4>Shipping : <span>$20.00</span></h4>
-                                        <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                    </div>
-                                    <div class="shopping-cart-btn">
-                                        <a href="cart-page.html">view cart</a>
-                                        <a href="checkout.html">checkout</a>
-                                    </div>
-                                </div>
                             </div>
+                            
+                            @* <div class="header-cart"> *@
+                            @*     <a asp-controller="Products" asp-action="Cart"> *@
+                            @*         <div class="cart-icon"> *@
+                            @*             <i class="ti-shopping-cart"></i> *@
+                            @*         </div> *@
+                            @*     </a> *@
+                            @*     <div class="shopping-cart-content"> *@
+                            @*         <ul> *@
+                            @*             <li class="single-shopping-cart"> *@
+                            @*                 <div class="shopping-cart-img"> *@
+                            @*                     <a href="#"><img alt="" src="assets/img/cart/cart-1.jpg"></a> *@
+                            @*                 </div> *@
+                            @*                 <div class="shopping-cart-title"> *@
+                            @*                     <h4><a href="#">Phantom Remote </a></h4> *@
+                            @*                     <h6>Qty: 02</h6> *@
+                            @*                     <span>$260.00</span> *@
+                            @*                 </div> *@
+                            @*                 <div class="shopping-cart-delete"> *@
+                            @*                     <a href="#"><i class="ion ion-close"></i></a> *@
+                            @*                 </div> *@
+                            @*             </li> *@
+                            @*             <li class="single-shopping-cart"> *@
+                            @*                 <div class="shopping-cart-img"> *@
+                            @*                     <a href="#"><img alt="" src="assets/img/cart/cart-2.jpg"></a> *@
+                            @*                 </div> *@
+                            @*                 <div class="shopping-cart-title"> *@
+                            @*                     <h4><a href="#">Phantom Remote</a></h4> *@
+                            @*                     <h6>Qty: 02</h6> *@
+                            @*                     <span>$260.00</span> *@
+                            @*                 </div> *@
+                            @*                 <div class="shopping-cart-delete"> *@
+                            @*                     <a href="#"><i class="ion ion-close"></i></a> *@
+                            @*                 </div> *@
+                            @*             </li> *@
+                            @*         </ul> *@
+                            @*         <div class="shopping-cart-total"> *@
+                            @*             <h4>Shipping : <span>$20.00</span></h4> *@
+                            @*             <h4>Total : <span class="shop-total">$260.00</span></h4> *@
+                            @*         </div> *@
+                            @*         <div class="shopping-cart-btn"> *@
+                            @*             <a href="cart-page.html">view cart</a> *@
+                            @*             <a href="checkout.html">checkout</a> *@
+                            @*         </div> *@
+                            @*     </div> *@
+                            @* </div> *@
                         }
                         <a style="cursor: pointer"><i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
                         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
@@ -272,7 +284,7 @@
             <a asp-controller="Products" asp-action="All" class="mx-2 text-dark text-decoration-none">Магазин</a>
             <a asp-controller="Home" asp-action="Contact" class="mx-2 text-dark text-decoration-none">Контакт</a>
         </div>
-        <small class="d-block">© @DateTime.Now.Year Изкустволандия. Създадено от Николай Василев.</small>
+        <small class="d-block">© @DateTime.Now.Year Изкустволандия. Създадено от Таня Божкова.</small>
     </div>
 </footer>
 

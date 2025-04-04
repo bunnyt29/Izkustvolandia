@@ -51,6 +51,36 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    function updateCartCount() {
+        $.get("/Products/CartSummary", function (data) {
+            $('#cart-count').text(data.count);
+        });
+    }
+
+    // Initial fetch on page load (optional)
+    updateCartCount();
+
+    $('#addToCartBtn').on('click', function () {
+        const productId = $(this).data('product-id');
+
+        $.get(`/Products/AddToCart?productId=${productId}`)
+            .done(function () {
+                updateCartCount();
+
+                // Optional: success toast
+                $('<div class="alert alert-success position-fixed top-0 end-0 m-3" role="alert" style="z-index:9999;">Добавено в количката!</div>')
+                    .appendTo('body')
+                    .delay(1500)
+                    .fadeOut(300, function () {
+                        $(this).remove();
+                    });
+            })
+            .fail(function () {
+                alert('Грешка при добавянето в количката.');
+            });
+    });
+});
 
 (function($) {
     'use strict';

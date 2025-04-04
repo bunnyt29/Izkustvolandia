@@ -46,90 +46,60 @@ namespace Izkustvolandia.Controllers
                 })
                 .ToListAsync();
             
-            productListingModel.MinPrice = (int)Math.Floor(productListingModel.Products.Min(p => p.Price));
-            productListingModel.MaxPrice = (int)Math.Ceiling(productListingModel.Products.Max(p => p.Price));
+            productListingModel.Filters.MinPrice = (int)Math.Floor(productListingModel.Products.Min(p => p.Price));
+            productListingModel.Filters.MaxPrice = (int)Math.Ceiling(productListingModel.Products.Max(p => p.Price));
             
             return View(productListingModel);
         }
-
-        // public async Task<IActionResult> FilterByGenre(int genreId)
-        // {
-        //     var productListingModel = await this.GetListingProductViewModel();
-        //
-        //     productListingModel.Products = await _context.Products
-        //         .Where(p => p.Genres.Any(g => g.GenreId == genreId))
-        //         .Include(p => p.DrawingTechniques)
-        //         .Include(p => p.Genres)
-        //         .Select(p => new ProductViewModel()
-        //         {
-        //             ProductId = p.ProductId,
-        //             Name = p.Name,
-        //             Description = p.Description,
-        //             ImageUrl = p.ImageUrl,
-        //             Author = p.Author,
-        //             Width = p.Width,
-        //             Height = p.Height,
-        //             Price = p.Price,
-        //             Genres = p.Genres,
-        //             DrawingTechniques = p.DrawingTechniques
-        //         })
-        //         .ToListAsync();
-        //
-        //     return View(nameof(All), productListingModel);
-        // }
-        //
-        // public async Task<IActionResult> FilterByDrawingTechnique(int drawingTechniqueId)
-        // {
-        //     var productListingModel = await this.GetListingProductViewModel();
-        //
-        //     productListingModel.Products = await _context.Products
-        //         .Where(p => p.DrawingTechniques.Any(dt => dt.DrawingTechniqueId == drawingTechniqueId))
-        //         .Include(p => p.DrawingTechniques)
-        //         .Include(p => p.Genres)
-        //         .Select(p => new ProductViewModel()
-        //         {
-        //             ProductId = p.ProductId,
-        //             Name = p.Name,
-        //             Description = p.Description,
-        //             ImageUrl = p.ImageUrl,
-        //             Author = p.Author,
-        //             Width = p.Width,
-        //             Height = p.Height,
-        //             Price = p.Price,
-        //             Genres = p.Genres,
-        //             DrawingTechniques = p.DrawingTechniques
-        //         })
-        //         .ToListAsync();
-        //
-        //     return View(nameof(All), productListingModel);
-        // }
         
-        // public async Task<IActionResult> FilterByPrice(int minPrice, int maxPrice)
-        // {
-        //     var productListingModel = await this.GetListingProductViewModel();
-        //     
-        //     productListingModel.Products = await _context.Products
-        //         .Where(p => p.Price >= minPrice && p.Price <= maxPrice)
-        //         .Include(p => p.Genres)
-        //         .Include(p => p.DrawingTechniques)
-        //         .Select(p => new DetailsProductViewModel()
-        //         {
-        //             ProductId = p.ProductId,
-        //             Name = p.Name,
-        //             Description = p.Description,
-        //             ImageUrl = p.ImageUrl,
-        //             Author = p.Author,
-        //             Width = p.Width,
-        //             Height = p.Height,
-        //             Price = p.Price,
-        //             Genres = p.Genres,
-        //             DrawingTechniques = p.DrawingTechniques
-        //         })
-        //         .ToListAsync();
-        //
-        //     return View(nameof(All), productListingModel);
-        // }
-        //
+        public async Task<IActionResult> Filter(ProductFiltersViewModel filter)
+        {
+            var productListingModel = await this.GetListingProductViewModel();
+            
+            var query = _context.Products
+                .Include(p => p.Genres)
+                .Include(p => p.DrawingTechniques)
+                .AsQueryable();
+
+            // Filter by Genre
+            if (!string.IsNullOrEmpty(filter.Genre))
+            {
+                query = query.Where(p => p.Genres.Any(g => g.Name == filter.Genre));
+                productListingModel.Filters.Genre = filter.Genre;
+            }
+
+            // Filter by DrawingTechnique
+            if (!string.IsNullOrEmpty(filter.DrawingTechnique))
+            {
+                query = query.Where(p => p.DrawingTechniques.Any(dt => dt.Name == filter.DrawingTechnique));
+                productListingModel.Filters.DrawingTechnique = filter.DrawingTechnique;
+            }
+            
+            productListingModel.Products = await query
+                .Select(p => new ProductViewModel()
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Description = p.Description,
+                    ImageUrls = p.ImageUrls,
+                    Author = p.Author,
+                    Width = p.Width,
+                    Height = p.Height,
+                    Price = p.Price,
+                    Genres = p.Genres,
+                    DrawingTechniques = p.DrawingTechniques
+                })
+                .ToListAsync();
+            
+            if (productListingModel.Products.Count > 0)
+            {
+                productListingModel.Filters.MinPrice = (int)Math.Floor(productListingModel.Products.Min(p => p.Price));
+                productListingModel.Filters.MaxPrice = (int)Math.Ceiling(productListingModel.Products.Max(p => p.Price));
+            }
+    
+            return View(nameof(All), productListingModel);
+        }
+        
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -158,7 +128,7 @@ namespace Izkustvolandia.Controllers
                 .FirstOrDefaultAsync();
 
             product.SimilarProducts = await _context.Products
-                .Where(p => p.Genres.Any(g => g.GenreId == product.Genres.First().GenreId))
+                .Where(p => p.Genres.Any(g => g.GenreId == product.Genres.First().GenreId) && p.ProductId != product.ProductId)
                 .Take(4)
                 .Select(p => new ProductViewModel()
                     {
@@ -174,6 +144,28 @@ namespace Izkustvolandia.Controllers
                         DrawingTechniques = p.DrawingTechniques
                     })
                 .ToListAsync();
+
+            if (product.SimilarProducts.Count == 0)
+            {
+                product.SimilarProducts = await _context.Products
+                    .Where(p => p.ProductId != product.ProductId)
+                    .Take(4)
+                    .Distinct()
+                    .Select(p => new ProductViewModel()
+                    {
+                        ProductId = p.ProductId,
+                        Name = p.Name,
+                        Description = p.Description,
+                        ImageUrls = p.ImageUrls,
+                        Author = p.Author,
+                        Width = p.Width,
+                        Height = p.Height,
+                        Price = p.Price,
+                        Genres = p.Genres,
+                        DrawingTechniques = p.DrawingTechniques
+                    })
+                    .ToListAsync();
+            }
             
             if (product == null)
             {
@@ -399,6 +391,21 @@ namespace Izkustvolandia.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> CartSummary()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return Json(new { count = 0 });
+            }
+
+            var count = await _context.Carts.CountAsync(c => c.UserId == user.Id);
+
+            return Json(new { count });
+        }
+        
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> RemoveFromCart(int id)
         {
@@ -501,12 +508,14 @@ namespace Izkustvolandia.Controllers
         {
             return new ListingProductViewModel()
             {
-                Genres = await _context.Genres
-                    .ToListAsync(),
+                Filters = new ProductFiltersViewModel()
+                {
+                    Genres = await _context.Genres
+                        .ToListAsync(),
 
-                DrawingTechniques = await _context.DrawingTechniques
-                    .ToListAsync(),
-        
+                    DrawingTechniques = await _context.DrawingTechniques
+                        .ToListAsync()
+                }
             };
         }
     }

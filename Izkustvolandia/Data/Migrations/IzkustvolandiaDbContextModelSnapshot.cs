@@ -22,36 +22,6 @@ namespace Izkustvolandia.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DrawingTechniqueProduct", b =>
-                {
-                    b.Property<int>("DrawingTechniquesDrawingTechniqueId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DrawingTechniquesDrawingTechniqueId", "ProductsProductId");
-
-                    b.HasIndex("ProductsProductId");
-
-                    b.ToTable("DrawingTechniqueProduct");
-                });
-
-            modelBuilder.Entity("GenreProduct", b =>
-                {
-                    b.Property<int>("GenresGenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresGenreId", "ProductsProductId");
-
-                    b.HasIndex("ProductsProductId");
-
-                    b.ToTable("GenreProduct");
-                });
-
             modelBuilder.Entity("Izkustvolandia.Domain.Cart", b =>
                 {
                     b.Property<int>("ProductId")
@@ -315,6 +285,134 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            Author = "Анна Петрова",
+                            CreatedOn = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Размер на платното 15х20 см. Продава се с рамка с дебелина 1 см. Нарисувана с акрилни бои върху платно с четка.",
+                            Height = 20.0,
+                            ImageUrls = "[\"mother-product-2-1.jpg\",\"mother-product-2-2.jpg\",\"mother-product-2-3.jpg\",\"mother-product-2-4.jpg\",\"mother-product-2-5.jpg\",\"mother-product-2-6.jpg\",\"mother-product-2-7.jpg\"]",
+                            IsDeleted = false,
+                            Name = "Майчина милувка 3",
+                            Price = 120.00m,
+                            Width = 15.0
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            Author = "Анна Петрова",
+                            CreatedOn = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "„Майчина милувка“ 5 е емоционална и изразителна картина, нарисувана с акрилни бои върху платно с помощта на четка и шпакли. Комбинацията от деликатни мазки и богата текстура придава дълбочина и характер на всяка линия. Платното е с размер 18х24 см и се предлага с елегантна рамка с дебелина 2 см, която допълва усещането за завършеност и уют.",
+                            Height = 24.0,
+                            ImageUrls = "[\"mother-product-1-1.jpg\",\"mother-product-1-2.jpg\",\"mother-product-1-3.jpg\",\"mother-product-1-4.jpg\"]",
+                            IsDeleted = false,
+                            Name = "Майчина милувка 5",
+                            Price = 160.00m,
+                            Width = 18.0
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            Author = "Мария Николова",
+                            CreatedOn = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "„Една“ 1 е елегантна творба, носеща усещане за нежност и самота. Създадена с акрилни бои върху платно, картината съчетава фини четкови мазки и текстури, постигнати с помощта на шпакли. Размерът ѝ е 15х20 см, а рамката с дебелина 1 см придава завършен и стилен вид.",
+                            Height = 20.0,
+                            ImageUrls = "[\"one-1-product-4-1.jpg\",\"one-1-product-4-2.jpg\",\"one-1-product-4-3.jpg\",\"one-1-product-4-4.jpg\",\"one-1-product-4-5.jpg\",\"one-1-product-4-6.jpg\",\"one-1-product-4-7.jpg\"]",
+                            IsDeleted = false,
+                            Name = "Една 1",
+                            Price = 110.00m,
+                            Width = 15.0
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            Author = "Никол Симеонова",
+                            CreatedOn = new DateTime(2024, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "„Една“ е картина, която разказва история чрез усещане и текстура. Създадена с акрилни бои върху платно, комбинира изразителни четкови мазки и грубата чувственост на шпаклата. Композицията е с размер 15х20 см и е обрамчена с деликатна 1-сантиметрова рамка, която подчертава емоционалната ѝ наситеност.",
+                            Height = 20.0,
+                            ImageUrls = "[\"one-product-3-1.jpg\",\"one-product-3-2.jpg\",\"one-product-3-3.jpg\",\"one-product-3-4.jpg\",\"one-product-3-5.jpg\",\"one-product-3-6.jpg\"]",
+                            IsDeleted = false,
+                            Name = "Една",
+                            Price = 105.00m,
+                            Width = 15.0
+                        });
+                });
+
+            modelBuilder.Entity("Izkustvolandia.Domain.ProductDrawingTechnique", b =>
+                {
+                    b.Property<int>("DrawingTechniqueId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DrawingTechniqueId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductDrawingTechniques");
+
+                    b.HasData(
+                        new
+                        {
+                            DrawingTechniqueId = 2,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            DrawingTechniqueId = 3,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            DrawingTechniqueId = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            DrawingTechniqueId = 2,
+                            ProductId = 4
+                        });
+                });
+
+            modelBuilder.Entity("Izkustvolandia.Domain.ProductGenre", b =>
+                {
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenreId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductGenres");
+
+                    b.HasData(
+                        new
+                        {
+                            GenreId = 1,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            GenreId = 4,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            GenreId = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            GenreId = 5,
+                            ProductId = 4
+                        });
                 });
 
             modelBuilder.Entity("Izkustvolandia.Domain.User", b =>
@@ -392,9 +490,9 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e166b00e-c141-4b0d-86cb-00b39f5146a1",
+                            Id = "1a829f7c-a5a5-4fcc-9bc3-14a201f5bbfa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49adfb12-681e-43e7-86e4-273089e7acca",
+                            ConcurrencyStamp = "13a2636e-6797-4941-a35d-f54a886c420f",
                             Email = "admin@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -402,17 +500,17 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "ADMIN@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPxsAb1s9NJtJqS4Rt5JvfMdWbgmbOkQvmXGrjvnS/v1AMSzkoJUS2f/66jyN6XF+A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB2xlt8d6m/ywzqZYZMv3rxWF9BhyzedHFf+zc1uMkTfuj6m0HOl9TUMUZsLzvmAZA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f4525c88-1ef2-4316-884a-0f9ae93fcfa4",
+                            SecurityStamp = "59e06f34-11de-4879-aaa2-c5cd98034201",
                             TwoFactorEnabled = false,
                             UserName = "admin@izkustvolandia.com"
                         },
                         new
                         {
-                            Id = "42b8b9b7-65cb-4677-a2dd-3daaf8c918e7",
+                            Id = "170985f6-9149-4d30-a026-3afc5b331471",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c694483a-0bbe-4d77-8aec-5549cbe937aa",
+                            ConcurrencyStamp = "1d93bef2-f500-4669-a8f0-4b10baed25b5",
                             Email = "user@izkustvolandia.com",
                             EmailConfirmed = true,
                             FirstName = "Иван",
@@ -420,9 +518,9 @@ namespace Izkustvolandia.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@IZKUSTVOLANDIA.COM",
                             NormalizedUserName = "USER@IZKUSTVOLANDIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAZTmm4EMWpCii22VZVKFLxfDcleBcsCl0g90rbZ7tuMUb0c7D+MEUWUPN0VoJFOIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOfREh61sWxRkFAfPacFaBYJ+vGipnWBNPjtJeHw4QnnphUPhdag2nPcPZMrZ/cdsA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e13df864-4de3-4736-b0a7-f6eed88a6e93",
+                            SecurityStamp = "6b06637f-a9b4-4922-856d-737b1648f698",
                             TwoFactorEnabled = false,
                             UserName = "user@izkustvolandia.com"
                         });
@@ -457,8 +555,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91",
-                            ConcurrencyStamp = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91",
+                            Id = "9e34072d-3bec-4bd3-923e-5179c78f1858",
+                            ConcurrencyStamp = "9e34072d-3bec-4bd3-923e-5179c78f1858",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -555,8 +653,8 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e166b00e-c141-4b0d-86cb-00b39f5146a1",
-                            RoleId = "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91"
+                            UserId = "1a829f7c-a5a5-4fcc-9bc3-14a201f5bbfa",
+                            RoleId = "9e34072d-3bec-4bd3-923e-5179c78f1858"
                         });
                 });
 
@@ -579,36 +677,6 @@ namespace Izkustvolandia.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("DrawingTechniqueProduct", b =>
-                {
-                    b.HasOne("Izkustvolandia.Domain.DrawingTechnique", null)
-                        .WithMany()
-                        .HasForeignKey("DrawingTechniquesDrawingTechniqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Izkustvolandia.Domain.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GenreProduct", b =>
-                {
-                    b.HasOne("Izkustvolandia.Domain.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresGenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Izkustvolandia.Domain.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Izkustvolandia.Domain.Cart", b =>
@@ -656,6 +724,44 @@ namespace Izkustvolandia.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Izkustvolandia.Domain.ProductDrawingTechnique", b =>
+                {
+                    b.HasOne("Izkustvolandia.Domain.DrawingTechnique", "DrawingTechnique")
+                        .WithMany()
+                        .HasForeignKey("DrawingTechniqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Izkustvolandia.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DrawingTechnique");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Izkustvolandia.Domain.ProductGenre", b =>
+                {
+                    b.HasOne("Izkustvolandia.Domain.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Izkustvolandia.Domain.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
 
                     b.Navigation("Product");
                 });

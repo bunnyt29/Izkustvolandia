@@ -85,7 +85,7 @@
 					{
 						<div class="product-wrapper">
 							<div class="product-img">
-								<a asp-action="Details" asp-route-id="@product.ProductId">
+								<a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
 									<img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
 								</a>
 								<div class="product-action">

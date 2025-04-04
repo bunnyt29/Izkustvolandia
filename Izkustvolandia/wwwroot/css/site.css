@@ -1545,9 +1545,6 @@ textarea:focus {
 --------------------------*/
 
 /* header bottom cart */
-.logo {
-    margin: 30px 0 0;
-}
 .header-bottom-right {
     display: flex;
     justify-content: flex-end;

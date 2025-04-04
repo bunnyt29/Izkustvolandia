@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Izkustvolandia.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class SeedGenresandDrawingTechniquestoProducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -254,48 +254,48 @@ namespace Izkustvolandia.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DrawingTechniqueProduct",
+                name: "ProductDrawingTechniques",
                 columns: table => new
                 {
-                    DrawingTechniquesDrawingTechniqueId = table.Column<int>(type: "int", nullable: false),
-                    ProductsProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    DrawingTechniqueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DrawingTechniqueProduct", x => new { x.DrawingTechniquesDrawingTechniqueId, x.ProductsProductId });
+                    table.PrimaryKey("PK_ProductDrawingTechniques", x => new { x.DrawingTechniqueId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_DrawingTechniqueProduct_DrawingTechniques_DrawingTechniquesDrawingTechniqueId",
-                        column: x => x.DrawingTechniquesDrawingTechniqueId,
+                        name: "FK_ProductDrawingTechniques_DrawingTechniques_DrawingTechniqueId",
+                        column: x => x.DrawingTechniqueId,
                         principalTable: "DrawingTechniques",
                         principalColumn: "DrawingTechniqueId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DrawingTechniqueProduct_Products_ProductsProductId",
-                        column: x => x.ProductsProductId,
+                        name: "FK_ProductDrawingTechniques_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GenreProduct",
+                name: "ProductGenres",
                 columns: table => new
                 {
-                    GenresGenreId = table.Column<int>(type: "int", nullable: false),
-                    ProductsProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenreProduct", x => new { x.GenresGenreId, x.ProductsProductId });
+                    table.PrimaryKey("PK_ProductGenres", x => new { x.GenreId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_GenreProduct_Genres_GenresGenreId",
-                        column: x => x.GenresGenreId,
+                        name: "FK_ProductGenres_Genres_GenreId",
+                        column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "GenreId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GenreProduct_Products_ProductsProductId",
-                        column: x => x.ProductsProductId,
+                        name: "FK_ProductGenres_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
@@ -330,15 +330,15 @@ namespace Izkustvolandia.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "Admin", "ADMIN" });
+                values: new object[] { "9e34072d-3bec-4bd3-923e-5179c78f1858", "9e34072d-3bec-4bd3-923e-5179c78f1858", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "42b8b9b7-65cb-4677-a2dd-3daaf8c918e7", 0, "c694483a-0bbe-4d77-8aec-5549cbe937aa", "user@izkustvolandia.com", true, "Иван", "Георгиев", false, null, "USER@IZKUSTVOLANDIA.COM", "USER@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEAZTmm4EMWpCii22VZVKFLxfDcleBcsCl0g90rbZ7tuMUb0c7D+MEUWUPN0VoJFOIQ==", null, false, "e13df864-4de3-4736-b0a7-f6eed88a6e93", false, "user@izkustvolandia.com" },
-                    { "e166b00e-c141-4b0d-86cb-00b39f5146a1", 0, "49adfb12-681e-43e7-86e4-273089e7acca", "admin@izkustvolandia.com", true, "Иван", "Иванов", false, null, "ADMIN@IZKUSTVOLANDIA.COM", "ADMIN@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEPxsAb1s9NJtJqS4Rt5JvfMdWbgmbOkQvmXGrjvnS/v1AMSzkoJUS2f/66jyN6XF+A==", null, false, "f4525c88-1ef2-4316-884a-0f9ae93fcfa4", false, "admin@izkustvolandia.com" }
+                    { "170985f6-9149-4d30-a026-3afc5b331471", 0, "1d93bef2-f500-4669-a8f0-4b10baed25b5", "user@izkustvolandia.com", true, "Иван", "Георгиев", false, null, "USER@IZKUSTVOLANDIA.COM", "USER@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEOfREh61sWxRkFAfPacFaBYJ+vGipnWBNPjtJeHw4QnnphUPhdag2nPcPZMrZ/cdsA==", null, false, "6b06637f-a9b4-4922-856d-737b1648f698", false, "user@izkustvolandia.com" },
+                    { "1a829f7c-a5a5-4fcc-9bc3-14a201f5bbfa", 0, "13a2636e-6797-4941-a35d-f54a886c420f", "admin@izkustvolandia.com", true, "Иван", "Иванов", false, null, "ADMIN@IZKUSTVOLANDIA.COM", "ADMIN@IZKUSTVOLANDIA.COM", "AQAAAAIAAYagAAAAEB2xlt8d6m/ywzqZYZMv3rxWF9BhyzedHFf+zc1uMkTfuj6m0HOl9TUMUZsLzvmAZA==", null, false, "59e06f34-11de-4879-aaa2-c5cd98034201", false, "admin@izkustvolandia.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -379,9 +379,42 @@ namespace Izkustvolandia.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Author", "CreatedOn", "Description", "Height", "ImageUrls", "IsDeleted", "Name", "Price", "Width" },
+                values: new object[,]
+                {
+                    { 1, "Анна Петрова", new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Размер на платното 15х20 см. Продава се с рамка с дебелина 1 см. Нарисувана с акрилни бои върху платно с четка.", 20.0, "[\"mother-product-2-1.jpg\",\"mother-product-2-2.jpg\",\"mother-product-2-3.jpg\",\"mother-product-2-4.jpg\",\"mother-product-2-5.jpg\",\"mother-product-2-6.jpg\",\"mother-product-2-7.jpg\"]", false, "Майчина милувка 3", 120.00m, 15.0 },
+                    { 2, "Анна Петрова", new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "„Майчина милувка“ 5 е емоционална и изразителна картина, нарисувана с акрилни бои върху платно с помощта на четка и шпакли. Комбинацията от деликатни мазки и богата текстура придава дълбочина и характер на всяка линия. Платното е с размер 18х24 см и се предлага с елегантна рамка с дебелина 2 см, която допълва усещането за завършеност и уют.", 24.0, "[\"mother-product-1-1.jpg\",\"mother-product-1-2.jpg\",\"mother-product-1-3.jpg\",\"mother-product-1-4.jpg\"]", false, "Майчина милувка 5", 160.00m, 18.0 },
+                    { 3, "Мария Николова", new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "„Една“ 1 е елегантна творба, носеща усещане за нежност и самота. Създадена с акрилни бои върху платно, картината съчетава фини четкови мазки и текстури, постигнати с помощта на шпакли. Размерът ѝ е 15х20 см, а рамката с дебелина 1 см придава завършен и стилен вид.", 20.0, "[\"one-1-product-4-1.jpg\",\"one-1-product-4-2.jpg\",\"one-1-product-4-3.jpg\",\"one-1-product-4-4.jpg\",\"one-1-product-4-5.jpg\",\"one-1-product-4-6.jpg\",\"one-1-product-4-7.jpg\"]", false, "Една 1", 110.00m, 15.0 },
+                    { 4, "Никол Симеонова", new DateTime(2024, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "„Една“ е картина, която разказва история чрез усещане и текстура. Създадена с акрилни бои върху платно, комбинира изразителни четкови мазки и грубата чувственост на шпаклата. Композицията е с размер 15х20 см и е обрамчена с деликатна 1-сантиметрова рамка, която подчертава емоционалната ѝ наситеност.", 20.0, "[\"one-product-3-1.jpg\",\"one-product-3-2.jpg\",\"one-product-3-3.jpg\",\"one-product-3-4.jpg\",\"one-product-3-5.jpg\",\"one-product-3-6.jpg\"]", false, "Една", 105.00m, 15.0 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "10374fbf-6ff9-4bcb-a1c9-c52ce230fc91", "e166b00e-c141-4b0d-86cb-00b39f5146a1" });
+                values: new object[] { "9e34072d-3bec-4bd3-923e-5179c78f1858", "1a829f7c-a5a5-4fcc-9bc3-14a201f5bbfa" });
+
+            migrationBuilder.InsertData(
+                table: "ProductDrawingTechniques",
+                columns: new[] { "DrawingTechniqueId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 3 },
+                    { 2, 1 },
+                    { 2, 4 },
+                    { 3, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductGenres",
+                columns: new[] { "GenreId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 3 },
+                    { 4, 2 },
+                    { 5, 4 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -428,16 +461,6 @@ namespace Izkustvolandia.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DrawingTechniqueProduct_ProductsProductId",
-                table: "DrawingTechniqueProduct",
-                column: "ProductsProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GenreProduct_ProductsProductId",
-                table: "GenreProduct",
-                column: "ProductsProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_OrderId",
                 table: "OrderProducts",
                 column: "OrderId");
@@ -451,6 +474,16 @@ namespace Izkustvolandia.Data.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDrawingTechniques_ProductId",
+                table: "ProductDrawingTechniques",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductGenres_ProductId",
+                table: "ProductGenres",
+                column: "ProductId");
         }
 
         /// <inheritdoc />
@@ -475,25 +508,25 @@ namespace Izkustvolandia.Data.Migrations
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "DrawingTechniqueProduct");
-
-            migrationBuilder.DropTable(
-                name: "GenreProduct");
-
-            migrationBuilder.DropTable(
                 name: "OrderProducts");
 
             migrationBuilder.DropTable(
+                name: "ProductDrawingTechniques");
+
+            migrationBuilder.DropTable(
+                name: "ProductGenres");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "DrawingTechniques");
 
             migrationBuilder.DropTable(
                 name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
