@@ -15,4 +15,6 @@ public class ProductFiltersViewModel
     public int MinPrice { get; set; }
 
     public int MaxPrice { get; set; } = 5000;
+
+    public string Search { get; set; }
 }

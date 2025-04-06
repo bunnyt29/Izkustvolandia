@@ -1,237 +1,197 @@
-@using System.Reflection.Emit
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using Label = Microsoft.Data.SqlClient.DataClassification.Label
 @model Izkustvolandia.Models.Products.ListingProductViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Магазин";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Продукти</h2>
-            <a asp-action="Create" class="btn btn-success">
-                <i class="fa fa-plus mr-1"></i> Създай нов
-            </a>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Снимка</th>
-                        <th>Име</th>
-                        <th>Описание</th>
-                        <th>Автор</th>
-                        <th>Ширина</th>
-                        <th>Височина</th>
-                        <th>Цена</th>
-                        <th>Създаден</th>
-                        <th>Изтрит</th>
-                        <th>Действия</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Products)
-                    {
-                        <tr>
-                            <td class="text-center">
-                                <img src="~/Image/product-images/@item.ImageUrls.First()" alt="@item.Name" style="height: 60px; object-fit: cover;">
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Author)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Width)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Height)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
-                            <td>@Html.DisplayFor(modelItem => item.IsDeleted)</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Редактирай</a>
-                                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info">Детайли</a>
-                                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Изтрий</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="breadcrumb-area bg-image-3 ptb-150">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h3>Магазин</h3>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="active">Магазин</li>
+            </ul>
         </div>
     </div>
-}
+</div>
 
-@if (!User.IsInRole("Admin"))
-{
-    <div class="breadcrumb-area bg-image-3 ptb-150">
-        <div class="container">
-            <div class="breadcrumb-content text-center">
-                <h3>Магазин</h3>
-                <ul>
-                    <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-                    <li class="active">Магазин</li>
-                </ul>
+<div class="shop-page-area ptb-100">
+    <div class="container">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="d-flex justify-content-end mb-4">
+                <a asp-action="Create" class="btn btn-success">
+                    <i class="fa fa-plus mr-1"></i> Създай нов продукт
+                </a>
             </div>
-        </div>
-    </div>
-    <!-- Breadcrumb Area End -->
-    <!-- Shop Page Area Start -->
-    <div class="shop-page-area ptb-100">
-        <div class="container">
-            <div class="row flex-row-reverse">
-                <div class="col-lg-9">
-                    <div class="shop-topbar-wrapper">
-                        <div class="shop-topbar-left">
-                            <ul class="view-mode">
-                                <li class="active"><a href="#product-grid" data-view="product-grid"><i class="fa fa-th"></i></a></li>
-                                <li><a href="#product-list" data-view="product-list"><i class="fa fa-list-ul"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product-sorting-wrapper">
-                            <div class="product-show shorting-style">
-                                <form method="get" asp-action="All">
-                                    <label>Сортирай по:</label>
-                                    <select name="sortOrder" id="sortOrder">
-                                        @if (@Model.sortedBy == "desc")
-                                        {
-                                            <option value="desc">Най-висока цена</option>
-                                            <option value="asc">Най-ниска цена</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="asc">Най-ниска цена</option>
-                                            <option value="desc">Най-висока цена</option>
-                                        }
-                                    </select>
-                                    <button type="submit" class="btn btn-primary">Сортирай</button>
-                                </form>
-                            </div>
+        }
+
+        <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="shop-topbar-wrapper">
+                    <div class="shop-topbar-left">
+                        <ul class="view-mode">
+                            <li class="active"><a href="#product-grid" data-view="product-grid"><i class="fa fa-th"></i></a></li>
+                            <li><a href="#product-list" data-view="product-list"><i class="fa fa-list-ul"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product-sorting-wrapper">
+                        <div class="product-show shorting-style">
+                            <form method="get" asp-action="All" class="d-flex align-items-center gap-2">
+                                <label>Сортирай по:</label>
+                                <select name="sortOrder" id="sortOrder" class="form-select">
+                                    @if (Model.sortedBy == "desc")
+                                    {
+                                        <option value="desc">Най-висока цена</option>
+                                        <option value="asc">Най-ниска цена</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="asc">Най-ниска цена</option>
+                                        <option value="desc">Най-висока цена</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-outline-success">Сортирай</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="grid-list-product-wrapper">
-                        <div class="product-grid product-view pb-20">
-                            <div class="row">
-                                @foreach (var product in Model.Products)
-                                { 
-                                    <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
-                                        <div class="product-wrapper">
-                                            <div class="product-img">
-                                                <a asp-action="Details" asp-route-id="@product.ProductId">
-                                                    <img alt="product" src="~/Image/product-images/@product.ImageUrls.First()">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
-                                                        Разгледай
-                                                    </a>
+                </div>
+
+                <div class="grid-list-product-wrapper">
+                    <div class="product-grid product-view pb-20">
+                        <div class="row">
+                            @if (!Model.Products.Any())
+                            {
+                                <div class="col-12 text-center mt-5 mb-5">
+                                    <h4 class="text-muted">❗ Няма намерени продукти по зададените филтри.</h4>
+                                </div>
+                            }
+
+                            @foreach (var product in Model.Products)
+                            {
+                                <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
+                                    <div class="product-wrapper">
+                                        <div class="product-img">
+                                            <a asp-action="Details" asp-route-id="@product.ProductId">
+                                                <img alt="product" src="~/Image/product-images/@product.ImageUrls.First()">
+                                            </a>
+                                            <div class="product-action">
+                                                <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">Разгледай</a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content text-left">
+                                            <div class="product-hover-style">
+                                                <div class="product-title">
+                                                    <h4><a asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a></h4>
+                                                </div>
+                                                <div class="cart-hover">
+                                                    <h4>Автор: @product.Author</h4>
                                                 </div>
                                             </div>
-                                            <div class="product-content text-left">
-                                                <div class="product-hover-style">
-                                                    <div class="product-title">
-                                                        <h4>
-                                                            <a href="product-details.html">@product.Name</a>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="cart-hover">
-                                                        <h4>Автор: @product.Author</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="product-price-wrapper">
-                                                    <span>@product.Price</span>
-                                                </div>
+                                            <div class="product-price-wrapper">
+                                                <span>@product.Price лв.</span>
                                             </div>
-                                            <div class="product-list-details">
-                                                <h4>
-                                                    <a asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a>
-                                                </h4>
-                                                <div class="product-price-wrapper">
-                                                    <span>@product.Price лв.</span>
-                                                </div>
-                                                <p>@product.Description</p>
-                                                <span>Автор: @product.Author</span>
-                                                <br/>
-                                                <span class="product-name">
-                                                    Жанр: 
-                                                    @string.Join(", ", product.Genres.Select(g => g.Name))
-                                                </span>
-                                                <br/>
-                                                <span class="product-name">
-                                                    Техники на рисуване: 
-                                                    @string.Join(", ", product.DrawingTechniques.Select(dt => dt.Name))
-                                                </span>
-                                                <div style="margin-top: 30px">
-                                                    <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
-                                                        Разгледай
-                                                    </a>
-                                                </div>
+                                        </div>
+                                        <div class="product-list-details">
+                                            <h4><a asp-action="Details" asp-route-id="@product.ProductId">@product.Name</a></h4>
+                                            <div class="product-price-wrapper">
+                                                <span>@product.Price лв.</span>
+                                            </div>
+                                            <p>@product.Description</p>
+                                            <span>Автор: @product.Author</span><br />
+                                            <span class="product-name">Жанр: @string.Join(", ", product.Genres.Select(g => g.Name))</span><br />
+                                            <span class="product-name">Техники на рисуване: @string.Join(", ", product.DrawingTechniques.Select(dt => dt.Name))</span>
+
+                                            <div class="mt-3 d-flex flex-column gap-2">
+                                                <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-outline-primary w-100">Разгледай</a>
+
                                                 @if (User.Identity.IsAuthenticated)
                                                 {
-                                                    @if (product.ProductInCart)
+                                                    if (product.ProductInCart)
                                                     {
-                                                        <div class="cart-hover">
-                                                            <h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
-                                                        </div>
+                                                        <a asp-action="RemoveFromCart" asp-route-id="@product.ProductId" class="btn btn-outline-danger w-100">
+                                                            Премахни от количката
+                                                        </a>
                                                     }
-                                                    @if (!product.ProductInCart)
+                                                    else
                                                     {
-                                                        <div class="cart-hover">
-                                                            <h4>
-                                                                <a href="javascript:void(0);"
-                                                                   class="btn primary-button"
-                                                                   id="addToCartBtn"
-                                                                   data-product-id="@product.ProductId">
-                                                                    + Добави към количката
-                                                                </a>
-                                                            </h4>
-                                                        </div>
+                                                        <a href="javascript:void(0);" class="btn btn-outline-success w-100 addToCartBtn" data-product-id="@product.ProductId">
+                                                            + Добави към количката
+                                                        </a>
                                                     }
+                                                }
+
+                                                @if (User.IsInRole("Admin"))
+                                                {
+                                                    <div class="d-flex justify-content-between gap-2 mt-2">
+                                                        <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-warning w-100">Редактирай</a>
+                                                        <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-sm btn-danger w-100">Изтрий</a>
+                                                    </div>
                                                 }
                                             </div>
                                         </div>
                                     </div>
-                                }
-                            </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="shop-sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
-                        <form method="get" asp-action="Filter" asp-controller="Products">
-                            <button type="submit" class="primary-button">Филтрирай</button>
+            </div>
 
-                            <div class="shop-widget mt-40 shop-sidebar-border pt-35">
-                                <h4 class="shop-sidebar-title">По жанр</h4>
-                                <div class="sidebar-list-style mt-20">
-                                    @foreach (var genre in Model.Filters.Genres)
-                                    {
-                                        var isChecked = genre.Name == Model.Filters.Genre ? "checked" : "";
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="shop-sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
+                    <form method="get" asp-action="Filter" asp-controller="Products">
+                        <button type="submit" class="btn btn-outline-success w-100 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-funnel-fill me-2"></i> Филтрирай
+                        </button>
 
-                                        <label for="genre">@genre.Name</label>
-                                        <input type="radio" id="genre" name="Genre" value="@genre.Name" @isChecked>
+                        <a asp-action="All" class="btn btn-outline-secondary w-100 mt-3 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-x-circle me-2"></i> Изчисти филтри
+                        </a>
 
-                                    }
-                                </div>
-                                <div class="shop-widget mt-40 shop-sidebar-border pt-35">
-                                    <h4 class="shop-sidebar-title">По техника на рисуване</h4>
-                                    <div class="sidebar-list-style mt-20">
-                                        <ul>
-                                            @foreach (var drawingTechnique in Model.Filters.DrawingTechniques)
-                                            {
-                                                var isChecked = drawingTechnique.Name == Model.Filters.DrawingTechnique ? "checked" : "";
+                        <div class="mb-3 mt-4">
+                            <label for="search" class="form-label fw-bold text-dark">Търси картина</label>
+                            <input type="text" id="search" name="search" placeholder="Напр. Цветя, Абстрактно..." class="form-control">
+                        </div>
 
-                                                <label for="drawingTechnique">@drawingTechnique.Name</label>
-                                                <input type="radio" id="drawingTechnique" name="DrawingTechnique" value="@drawingTechnique.Name" @isChecked>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
+                        <div class="shop-widget mt-4 shop-sidebar-border pt-3">
+                            <h4 class="shop-sidebar-title">По жанр</h4>
+                            <div class="sidebar-list-style mt-2">
+                                @foreach (var genre in Model.Filters.Genres)
+                                {
+                                    var isChecked = genre.Name == Model.Filters.Genre ? "checked" : "";
+                                    var genreId = $"genre-{genre.Name.Replace(" ", "-")}";
+
+                                    <label class="custom-radio d-block" for="@genreId">
+                                        <input type="radio" id="@genreId" name="Genre" value="@genre.Name" @isChecked />
+                                        @genre.Name
+                                    </label>
+                                }
                             </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="shop-widget mt-4 shop-sidebar-border pt-3">
+                            <h4 class="shop-sidebar-title">По техника на рисуване</h4>
+                            <div class="sidebar-list-style mt-2">
+                                @foreach (var drawingTechnique in Model.Filters.DrawingTechniques)
+                                {
+                                    var isChecked = drawingTechnique.Name == Model.Filters.DrawingTechnique ? "checked" : "";
+                                    var techniqueId = $"technique-{drawingTechnique.Name.Replace(" ", "-")}";
+
+                                    <label class="custom-radio d-block" for="@techniqueId">
+                                        <input type="radio" id="@techniqueId" name="DrawingTechnique" value="@drawingTechnique.Name" @isChecked />
+                                        @drawingTechnique.Name
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div></div>
-}
+        </div>
+    </div>
+</div>

@@ -1,51 +1,47 @@
 @model List<Izkustvolandia.Models.Orders.OrderDetailsOutputModel>
 
-<section class="page-header">
+<section class="page-header bg-light py-4 mb-4 border-bottom">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="content">
-                    <h1 class="page-name">Всички поръчки</h1>
-                </div>
-            </div>
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0">
+                <i class="bi bi-bag-check-fill text-primary me-2"></i>
+                Всички поръчки
+            </h1>
         </div>
     </div>
 </section>
+
 <section class="user-dashboard page-wrapper">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="dashboard-wrapper user-dashboard">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Име</th>
-                                <th>Тел. номер</th>
-                                <th>Адрес</th>
-                                <th>Дата на поръчване</th>
-                                <th>Дата на доставка</th>
-                                <th>Общо</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach (var order in Model)
-                            {
-                                <tr>
-                                    <td>@order.Id</td>
-                                    <td>@order.User?.Name</td>
-                                    <td>@order.PhoneNumber</td>
-                                    <td>@order.Address</td>
-                                    <td>@order.CreatedOn</td>
-                                    <td>@order.DeliveryOn</td>
-                                    <td>@order.TotalSum лв.</td>
-                                </tr>
-                            }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="dashboard-wrapper user-dashboard">
+            <div class="table-responsive shadow-sm border rounded overflow-hidden">
+                <table class="table table-hover table-striped mb-0 align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Име</th>
+                        <th scope="col">Тел. номер</th>
+                        <th scope="col">Адрес</th>
+                        <th scope="col">Дата на поръчване</th>
+                        <th scope="col">Дата на доставка</th>
+                        <th scope="col">Общо</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.User?.Name</td>
+                            <td>@order.PhoneNumber</td>
+                            <td>@order.Address</td>
+                            <td>@order.CreatedOn.ToString("dd.MM.yyyy")</td>
+                            <td>@order.DeliveryOn</td>
+                            <td><strong>@order.TotalSum.ToString("F2") лв.</strong></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

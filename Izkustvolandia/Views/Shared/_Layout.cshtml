@@ -66,23 +66,24 @@
                         </a>
                     </div>
                 </div>
-                @if (!User.IsInRole("Admin"))
-                {
-                    <div class="col-lg-5 col-md-8 col-6">
-                        <div class="header-bottom-right">
-                            <div class="main-menu">
-                                <nav>
-                                    <ul>
-                                        <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-                                        <li><a asp-controller="Products" asp-action="All">Продукти</a></li>
-                                        <li class="top-hover"><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                <div class="col-lg-7 col-md-8 col-6">
+                    <div class="header-bottom-right justify-content-center">
+                        <div class="main-menu">
+                            <nav>
+                                <ul>
+                                    <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
+                                    <li><a asp-controller="Products" asp-action="All">Продукти</a></li>
+                                    <li class="top-hover"><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li class="top-hover"><a asp-controller="Orders" asp-action="Mine">Моите поръчки</a></li>
+                                    }
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                }
-                <div class="col-lg-4 col-md-8 col-2 d-flex align-items-center nav-left-side">
+                </div>
+                <div class="col-lg-2 col-md-8 col-2 d-flex align-items-center nav-left-side">
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("Admin"))
@@ -160,8 +161,8 @@
                             @*     </div> *@
                             @* </div> *@
                         }
-                        <a style="cursor: pointer"><i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
-                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                        @* <a style="cursor: pointer" asp-area="Identity" asp-page="/Identity/Account/Manage"><i class="fa fa-user fa-lg" aria-hidden="true"></i></a> *@
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post">
                             <button type="submit" class="nav-link btn btn-link text-dark" style="cursor: pointer"><i class="fa fa-sign-out fa-lg mr-1"></i></button>
                         </form>
                     }

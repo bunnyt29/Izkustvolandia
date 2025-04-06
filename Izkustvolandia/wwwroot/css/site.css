@@ -5514,6 +5514,16 @@ h4.section-title-about::before {
     padding: 5px 20px;
     border-radius: 15px;
     font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.primary-button:hover {
+    background-color: #3c7c0b;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .nav-left-side {
@@ -5566,4 +5576,82 @@ button, a {
     .masonry-gallery {
         column-count: 1;
     }
+}
+
+/* Custom radio styling */
+.custom-radio {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    display: inline-block;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.custom-radio:hover .checkmark {
+    background-color: #ddd;
+}
+
+.custom-radio input:checked ~ .checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-radio .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.custom-radio .checkmark::after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.clear-filters {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #6c757d;
+    background-color: transparent;
+    color: #6c757d;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.clear-filters:hover {
+    background-color: #6c757d;
+    color: #fff;
+    text-decoration: none;
 }

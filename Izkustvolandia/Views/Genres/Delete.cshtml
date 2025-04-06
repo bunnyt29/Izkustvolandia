@@ -1,28 +1,35 @@
 @model Izkustvolandia.Domain.Genre
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Изтриване";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Изтриване</h1>
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h3 class="text-center text-danger mb-4">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Сигурни ли сте, че искате да изтриете жанра?
+                    </h3>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Жанр</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="GenreId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+                    <div class="mb-4 text-center">
+                        <h5 class="fw-bold">Жанр:</h5>
+                        <p class="fs-5">@Model.Name</p>
+                    </div>
+
+                    <form asp-action="Delete" class="d-flex justify-content-between">
+                        <input type="hidden" asp-for="GenreId" />
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Назад
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash3-fill"></i> Изтрий
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -20,8 +20,11 @@
 
                 <div class="form-group mb-3">
                     <label asp-for="Images" class="control-label">Снимка на продукта</label>
-                    <input type="hidden" asp-for="ImageUrls" class="form-control" />
-                    <img src="~/Images/@Model.ImageUrls" alt="">
+                    <input asp-for="Images" class="form-control" />
+                    @foreach (var imageUrl in Model.ImageUrls)
+                    {
+                        <img src="~/Image/product-images/@imageUrl" width="50px">
+                    }
                     <span asp-validation-for="Images" class="text-danger"></span>
                 </div>
 

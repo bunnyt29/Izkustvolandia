@@ -85,6 +85,9 @@ public class OrdersController : Controller
             };
             
             await this._context.OrderProducts.AddAsync(orderProduct);
+
+            item.IsDeleted = true;
+            
             await this._context.SaveChangesAsync();
         }
         

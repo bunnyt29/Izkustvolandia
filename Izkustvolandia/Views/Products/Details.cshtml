@@ -6,180 +6,127 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0" style="font-size: 1.75rem;">Продукт</h4>
-            <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-sm">
-                <i class="fa fa-edit"></i> Редактирай продукта
-            </a>
-        </div>
+<div class="product-details pt-100 pb-95">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="product-details-img">
+                    <img id="mainImage"
+                         class="zoompro"
+                         src="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
+                         data-zoom-image="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
+                         alt="Продуктова снимка" />
 
-        <div class="card-body">
-            <hr />
+                    @if (Model.ImageUrls.Count > 1)
+                    {
+                        <div id="gallery" class="mt-20 owl-carousel">
+                            @foreach (var imageUrl in Model.ImageUrls)
+                            {
+                                var fullImagePath = Url.Content("~/Image/product-images/" + imageUrl);
+                                <a href="#"
+                                   data-image="@fullImagePath"
+                                   data-zoom-image="@fullImagePath">
+                                    <img src="@fullImagePath" alt="thumb" height="80px" style="object-fit: cover" />
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 flex-column align-items-center">
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="flex-column justify-content-end" style="margin-bottom: 140px">
+                        <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-sm btn-warning">
+                            <i class="fa fa-edit"></i> Редактирай продукта
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.ProductId" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Изтрий продукта
+                        </a>
+                    </div>
+                }
+                <div class="product-details-content w-100">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="border-bottom-1" style="margin-bottom: 0; padding-bottom: 10px; color: black">@Model.Name</h4>
+                    </div>
 
-            <dl class="row" style="font-size: 1.1rem;">
-                <dt class="col-sm-3 font-weight-bold">Снимка</dt>
-                <dd class="col-sm-9">
-                    <img src="~/Image/product-images/@Model.ImageUrls" alt="Продуктова снимка" class="img-fluid" style="max-height: 300px; object-fit: cover;">
-                </dd>
+                    <span>Цена: @Model.Price лв.</span>
 
-                <dt class="col-sm-3 font-weight-bold">Заглавие</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+                    <p style="font-size: 16px; margin-top: 20px">@Model.Description</p>
 
-                <dt class="col-sm-3 font-weight-bold">Описание</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Автор</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Author)</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Ширина</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Width)</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Височина</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Height)</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Цена</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Price) лв.</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Дата на създаване</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedOn)</dd>
-
-                <dt class="col-sm-3 font-weight-bold">Изтрито</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.IsDeleted)</dd>
-            </dl>
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <a asp-action="All" class="btn btn-link" style="font-size: 1.2rem;">
-            <i class="fa fa-arrow-left"></i> Назад към списъка
-        </a>
-    </div>
-</div>
-}
-
-@if (!User.IsInRole("Admin"))
-{
-    <div class="product-details pt-100 pb-95">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="product-details-img">
-                        <img id="mainImage"
-                             class="zoompro"
-                             src="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
-                             data-zoom-image="@Url.Content("~/Image/product-images/" + Model.ImageUrls.First())"
-                             alt="Продуктова снимка" />
-                        
-                        @if (Model.ImageUrls.Count > 1)
-                        {
-                            <div id="gallery" class="mt-20 owl-carousel">
-                                @foreach (var imageUrl in Model.ImageUrls)
+                    <div class="pro-dec-feature">
+                        <ul style="font-size: 16px">
+                            <li>Автор: <span>@Model.Author</span></li>
+                            <li>Жанр:
+                                @foreach (var genre in Model.Genres)
                                 {
-                                    var fullImagePath = Url.Content("~/Image/product-images/" + imageUrl);
-                                    <a href="#"
-                                       data-image="@fullImagePath"
-                                       data-zoom-image="@fullImagePath">
-                                        <img src="@fullImagePath" alt="thumb" height="80px" style="object-fit: cover"/>
-                                    </a>
+                                    <span>@genre.Name</span>
                                 }
-                            </div>
+                            </li>
+                            <li>Техники на рисуване:
+                                @foreach (var drawingTechnique in Model.DrawingTechniques)
+                                {
+                                    <span>@drawingTechnique.Name</span>
+                                }
+                            </li>
+                            <li>Размери: <span>@Model.Width x @Model.Height см.</span></li>
+                        </ul>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (Model.ProductInCart)
+                            {
+                                <a asp-action="RemoveFromCart" asp-route-id="@Model.ProductId" class="btn disapprove-button mt-3">Премахни от количката</a>
+                            }
+                            else
+                            {
+                                <a asp-action="AddToCart" asp-route-productId="@Model.ProductId" class="btn primary-button mt-3">+ Добави към количката</a>
+                            }
                         }
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12 d-flex align-items-center">
-                    <div class="product-details-content">
-                        <h4 class="border-bottom-1" style="margin-bottom: 20px; padding-bottom: 20px; color: black">@Model.Name</h4>
-                        <span>Цена: @Model.Price лв.</span>
-                        <p style="font-size: 16px; margin-top: 20px">@Model.Description</p>
-                        <div class="pro-dec-feature">
-                            <ul>
-                                <li style="font-size: 16px">
-                                    Автор: <span>@Model.Author</span>
-                                </li>
-                                <li style="font-size: 16px">
-                                    Жанр:
-                                    @foreach (var genre in Model.Genres)
-                                    {
-
-                                        <span>@genre.Name</span>
-                                    }
-                                </li>
-                                <li style="font-size: 16px">
-                                    Техники на рисуване:
-                                    @foreach (var drawingTechnique in Model.DrawingTechniques)
-                                    {
-
-                                        <span>@drawingTechnique.Name</span>
-                                    }
-                                </li>
-                                <li style="font-size: 16px">
-                                    Размери: <span>@Model.Width x @Model.Height см.</span>
-                                </li>
-                            </ul>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                @if (Model.ProductInCart)
-                                {
-                                    <a asp-action="RemoveFromCart" asp-route-id="@Model.ProductId" class="btn disapprove-button">Премахни от количката</a>
-                                }
-                                @if (!Model.ProductInCart)
-                                {
-                                    <a asp-action="AddToCart" asp-route-productId="@Model.ProductId" class="btn primary-button">+ Добави към количката</a>
-                                }
-                            }
-                            @* <form method="post" action="@Url.Action("AddToCart", "Cart", new { id = Model.ProductId })"> *@
-                            @*     <button type="submit" class="btn primary-button">+ Добави към количката</button> *@
-                            @* </form> *@
-                        </div>
-                    
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <div class="product-area pb-100">
-            <div class="container">
-                <div class="product-top-bar section-border mb-35">
-                    <div class="section-title-wrap">
-                        <h3 class="section-title section-bg-white">Може още да харесате:</h3>
-                    </div>
-                </div>
-                <div class="featured-product-active hot-flower owl-carousel product-nav">
-	                @foreach (var product in Model.SimilarProducts)
-	                {
-		                <div class="product-wrapper">
-			                <div class="product-img">
-				                <a asp-action="Details" asp-route-id="@product.ProductId">
-					                <img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
-				                </a>
-                                <div class="product-action">
-                                    <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
-                                        Разгледай
-                                    </a>
-                                </div>
-			                </div>
-			                <div class="product-content text-left">
-				                <div class="product-hover-style">
-					                <div class="product-title">
-						                <h4>
-							                <a>@product.Name</a>
-						                </h4>
-					                </div>
-					                <div class="cart-hover">
-						                <h4><a>Автор: @product.Author</a></h4>
-					                </div>
-				                </div>
-				                <div class="product-price-wrapper">
-					                <span>@product.Price</span>
-				                </div>
-			                </div>
-		                </div>
-	                }
-                </div>
+</div>
+
+<!-- Similar Products -->
+<div class="product-area pb-100">
+    <div class="container">
+        <div class="product-top-bar section-border mb-35">
+            <div class="section-title-wrap">
+                <h3 class="section-title section-bg-white">Може още да харесате:</h3>
             </div>
         </div>
-}
+        <div class="featured-product-active hot-flower owl-carousel product-nav">
+            @foreach (var product in Model.SimilarProducts)
+            {
+                <div class="product-wrapper">
+                    <div class="product-img">
+                        <a asp-action="Details" asp-route-id="@product.ProductId">
+                            <img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
+                        </a>
+                        <div class="product-action">
+                            <a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
+                                Разгледай
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-content text-left">
+                        <div class="product-hover-style">
+                            <div class="product-title">
+                                <h4><a>@product.Name</a></h4>
+                            </div>
+                            <div class="cart-hover">
+                                <h4><a>Автор: @product.Author</a></h4>
+                            </div>
+                        </div>
+                        <div class="product-price-wrapper">
+                            <span>@product.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

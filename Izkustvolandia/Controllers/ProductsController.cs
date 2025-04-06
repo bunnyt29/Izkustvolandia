@@ -31,6 +31,7 @@ namespace Izkustvolandia.Controllers
             productListingModel.sortedBy = sortOrder;
 
             var productQuery = _context.Products
+                .Where(p => p.IsDeleted == false)
                 .Include(p => p.Genres)
                 .Include(p => p.DrawingTechniques)
                 .Select(p => new ProductViewModel()
@@ -64,6 +65,7 @@ namespace Izkustvolandia.Controllers
             var productListingModel = await this.GetListingProductViewModel();
             
             var query = _context.Products
+                .Where(p => p.IsDeleted == false)
                 .Include(p => p.Genres)
                 .Include(p => p.DrawingTechniques)
                 .AsQueryable();
@@ -80,6 +82,12 @@ namespace Izkustvolandia.Controllers
             {
                 query = query.Where(p => p.DrawingTechniques.Any(dt => dt.Name == filter.DrawingTechnique));
                 productListingModel.Filters.DrawingTechnique = filter.DrawingTechnique;
+            }
+
+            if (!string.IsNullOrEmpty(filter.Search))
+            {
+                query = query.Where(p => p.Name.Contains(filter.Search));
+                productListingModel.Filters.Search = filter.Search;
             }
             
             productListingModel.Products = await query
@@ -119,6 +127,7 @@ namespace Izkustvolandia.Controllers
 
             var product = await _context.Products
                 .Where(p => p.ProductId == id)
+                .Where(p => p.IsDeleted == false)
                 .Select(p => new DetailsProductViewModel()
                 {
                     ProductId = p.ProductId,
@@ -135,7 +144,8 @@ namespace Izkustvolandia.Controllers
                 .FirstOrDefaultAsync();
 
             product.SimilarProducts = await _context.Products
-                .Where(p => p.Genres.Any(g => g.GenreId == product.Genres.First().GenreId) && p.ProductId != product.ProductId)
+                .Where(p => p.Genres.Any(g => g.GenreId == product.Genres.First().GenreId) && p.ProductId != product.ProductId && p.IsDeleted == false)
+                .Distinct()
                 .Take(4)
                 .Select(p => new ProductViewModel()
                     {
@@ -155,9 +165,9 @@ namespace Izkustvolandia.Controllers
             if (product.SimilarProducts.Count == 0)
             {
                 product.SimilarProducts = await _context.Products
-                    .Where(p => p.ProductId != product.ProductId)
-                    .Take(4)
+                    .Where(p => p.ProductId != product.ProductId && p.IsDeleted == false)
                     .Distinct()
+                    .Take(4)
                     .Select(p => new ProductViewModel()
                     {
                         ProductId = p.ProductId,
@@ -384,17 +394,25 @@ namespace Izkustvolandia.Controllers
         {
             var user = await this._userManager.GetUserAsync(User);
 
-            var itemInCart = await _context.Carts.Where(c => c.ProductId == productId && c.UserId == user.Id).AnyAsync();
+            var itemInCart = await _context.Carts
+                .AnyAsync(c => c.ProductId == productId && c.UserId == user.Id);
 
             if (!itemInCart)
             {
-                var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == productId);
-                user.Products.Add(product);
+                var product = await _context.Products
+                    .FirstOrDefaultAsync(p => p.ProductId == productId);
+
+                if (product != null)
+                {
+                    user.Products.Add(product);
+                }
             }
 
-            await this._context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            return Ok();
+            // Redirect to the previous page
+            var referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
         [HttpGet]

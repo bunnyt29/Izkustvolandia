@@ -62,13 +62,7 @@
                         <h4 class="cart-bottom-title section-bg-gary-cart">Обща сума</h4>
                     </div>
                     <h5>Общо продукти <span>@Model.Sum(p => p.Price) лв.</span></h5>
-                    <div class="total-shipping">
-                        <h5>Доставка</h5>
-                        <ul>
-                            <li><input type="checkbox" /> Стандартна <span>5.00 лв.</span></li>
-                            <li><input type="checkbox" /> Експресна <span>10.00 лв.</span></li>
-                        </ul>
-                    </div>
+                    <h5>Доставка <span>5.00 лв.</span></h5>
                     <h4 class="grand-totall-title">Общо <span>@(Model.Sum(p => p.Price) + 5.00M) лв.</span></h4>
                     <a asp-controller="Orders" asp-action="Overview">Премини към поръчка</a>
                 </div>
