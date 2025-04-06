@@ -35,15 +35,30 @@ public class DrawingTechniquesController(IzkustvolandiaDbContext _context) : Con
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(DrawingTechniqueViewModel viewModel)
     {
-        var drawingTechnique = new DrawingTechnique()
+        var alreadyExists = await _context.DrawingTechniques.AnyAsync(dw => dw.Name == viewModel.Name);
+        if (alreadyExists)
         {
-            Name = viewModel.Name,
-        };
+            ModelState.AddModelError("Name", "Такава техника вече съществува");
+        }
+
+        if (ModelState.IsValid)
+        {
+           
+            var drawingTechnique = new DrawingTechnique()
+            {
+                Name = viewModel.Name,
+            };
         
-        _context.DrawingTechniques.Add(drawingTechnique);
-        await _context.SaveChangesAsync();
+            _context.DrawingTechniques.Add(drawingTechnique);
+            await _context.SaveChangesAsync();
         
-        return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(All)); 
+        }
+        else
+        {
+            return View(viewModel);
+        }
+        
     }
 
     [HttpGet]
@@ -66,15 +81,29 @@ public class DrawingTechniquesController(IzkustvolandiaDbContext _context) : Con
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(DrawingTechniqueViewModel viewModel)
     {
-        var drawingTechnique = await _context.DrawingTechniques
-            .FirstOrDefaultAsync(dt => dt.DrawingTechniqueId == viewModel.DrawingTechniqueId);
+        var alreadyExists = await _context.DrawingTechniques.AnyAsync(dw => dw.Name == viewModel.Name);
+        if (alreadyExists)
+        {
+            ModelState.AddModelError("Name", "Такава техника вече съществува");
+        }
+
+        if (ModelState.IsValid)
+        {
+            var drawingTechnique = await _context.DrawingTechniques
+                .FirstOrDefaultAsync(dt => dt.DrawingTechniqueId == viewModel.DrawingTechniqueId);
         
-        drawingTechnique.Name = viewModel.Name;
+            drawingTechnique.Name = viewModel.Name;
         
-        _context.DrawingTechniques.Update(drawingTechnique);
-        await _context.SaveChangesAsync();
+            _context.DrawingTechniques.Update(drawingTechnique);
+            await _context.SaveChangesAsync();
         
-        return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(All));
+        }
+        else
+        {
+            return View(viewModel);
+        }
+        
     }
 
     [HttpGet]

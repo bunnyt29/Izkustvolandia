@@ -300,6 +300,16 @@ namespace Izkustvolandia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, EditProductInputModel inputModel)
         {
+            if (inputModel.GenreIds.Count == 0)
+            {
+                ModelState.AddModelError("GenreIds", "Полето е задължително!");
+            }
+            
+            if (inputModel.DrawingTechniqueIds.Count == 0)
+            {
+                ModelState.AddModelError("DrawingTechniqueIds", "Полето е задължително!");
+            }
+            
             if (!ModelState.IsValid)
             {
                 ViewBag.Genres = _context.Genres.ToList();
@@ -331,22 +341,26 @@ namespace Izkustvolandia.Controllers
             product.Height = inputModel.Height;
             product.Price = inputModel.Price;
 
-            if (inputModel.GenreIds != null && inputModel.GenreIds.Any())
+            if (inputModel.GenreIds != null && inputModel.GenreIds.Count > 0)
             {
-                product.Genres.Clear();
-
                 product.Genres = _context.Genres
                     .Where(g => inputModel.GenreIds.Contains(g.GenreId))
                     .ToList();
             }
-            
-            if (inputModel.DrawingTechniqueIds != null && inputModel.DrawingTechniqueIds.Any())
+            if (!inputModel.GenreIds.Any()) 
             {
-                product.DrawingTechniques.Clear();
-
+                product.Genres.Clear();
+            }
+            
+            if (inputModel.DrawingTechniqueIds != null && inputModel.DrawingTechniqueIds.Count > 0)
+            {
                 product.DrawingTechniques = _context.DrawingTechniques
                     .Where(dt => inputModel.DrawingTechniqueIds.Contains(dt.DrawingTechniqueId))
                     .ToList();
+            } 
+            if (!inputModel.DrawingTechniqueIds.Any())
+            {
+                product.DrawingTechniques.Clear();
             }
 
             _context.Update(product);

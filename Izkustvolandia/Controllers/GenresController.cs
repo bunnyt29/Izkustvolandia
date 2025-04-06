@@ -35,15 +35,30 @@ public class GenresController(IzkustvolandiaDbContext _context) : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(GenreViewModel viewModel)
     {
-        var genre = new Genre
+        var alreadyExists = await _context.Genres.AnyAsync(g => g.Name == viewModel.Name);
+        if (alreadyExists)
         {
-            Name = viewModel.Name,
-        };
+            ModelState.AddModelError("Name", "Вече съществува такъв жанр");
+        }
+
+        if (ModelState.IsValid)
+        {
+            var genre = new Genre
+            {
+                Name = viewModel.Name,
+            };
         
-        _context.Genres.Add(genre);
-        await _context.SaveChangesAsync();
+            _context.Genres.Add(genre);
+            await _context.SaveChangesAsync();
         
-        return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(All)); 
+        }
+        else
+        {
+            return View(viewModel);
+        }
+        
+        
     }
 
     [HttpGet]
@@ -66,15 +81,29 @@ public class GenresController(IzkustvolandiaDbContext _context) : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(GenreViewModel viewModel)
     {
-        var genre = await _context.Genres
-            .FirstOrDefaultAsync(g => g.GenreId == viewModel.GenreId);
+        var alreadyExists = await _context.Genres.AnyAsync(g => g.Name == viewModel.Name);
+        if (alreadyExists)
+        {
+            ModelState.AddModelError("Name", "Вече съществува такъв жанр");
+        }
+
+        if (ModelState.IsValid)
+        {
+            var genre = await _context.Genres
+                .FirstOrDefaultAsync(g => g.GenreId == viewModel.GenreId);
         
-        genre.Name = viewModel.Name;
+            genre.Name = viewModel.Name;
         
-        _context.Genres.Update(genre);
-        await _context.SaveChangesAsync();
+            _context.Genres.Update(genre);
+            await _context.SaveChangesAsync();
         
-        return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(All));
+        }
+        else
+        {
+            return View(viewModel);
+        }
+        
     }
 
     [HttpGet]
