@@ -489,7 +489,7 @@ namespace Izkustvolandia.Controllers
                 // Път към папката wwwroot/Image
                 string uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Image/product-images");
 
-                // Увери се, че папката съществува
+                // Уверяваме се, че папката съществува
                 if (!Directory.Exists(uploadPath))
                 {
                     Directory.CreateDirectory(uploadPath);

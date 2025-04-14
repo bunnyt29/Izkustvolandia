@@ -3,6 +3,19 @@
 });
 
 $(document).ready(function () {
+    $('#hamburger-button').on('click', function () {
+        $('.main-menu').toggleClass('active');
+    });
+
+    // Optional: collapse menu when clicking a link (for smoother UX)
+    $('.main-menu a').on('click', function () {
+        if ($(window).width() < 992) {
+            $('.main-menu').removeClass('active');
+        }
+    });
+});
+
+$(document).ready(function () {
     var $gallery = $("#gallery");
     
     // Initialize zoom on main image

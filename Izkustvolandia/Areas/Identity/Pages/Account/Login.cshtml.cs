@@ -32,10 +32,10 @@ namespace Izkustvolandia.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Имейлът е задължителен.")]
             public string Email { get; set; }
     
-            [Required]
+            [Required(ErrorMessage = "Паролата е задължителна.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

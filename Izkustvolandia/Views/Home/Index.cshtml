@@ -11,7 +11,7 @@
 						<div class="slider-content slider-animated-1">
 							<h1 class="animated">Добре дошли в</h1>
 							<h1 class="animated"><span class="theme-color">Изкустволандия</span></h1>
-							<p>Тущ ще откриете колекция от ръчно рисувани картини, които ще преобразят всяко пространство. Нашата мисия е да донесем красотата и емоцията на изкуството във вашия дом или офис.</p>
+							<p>Тук ще откриете колекция от ръчно рисувани картини, които ще преобразят всяко пространство. Нашата мисия е да донесем красотата и емоцията на изкуството във вашия дом или офис.</p>
 						</div>
 					</div>
 				</div>
@@ -20,7 +20,7 @@
 
 		<!-- Slider End -->
 
-		<section class="position-relative py-5" style="height: 700px; background-color: #fdfdfd; margin-top: 100px">
+		<section class="position-relative py-5" style="min-height: 700px; background-color: #fdfdfd; margin-top: 100px">
 			<style>
 				.floating-gallery {
 					position: relative;
@@ -89,7 +89,7 @@
 									<img alt="" src="~/Image/product-images/@product.ImageUrls.First()">
 								</a>
 								<div class="product-action">
-									<a asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
+									<a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" class="primary-button">
 										Разгледай
 									</a>
 								</div>
