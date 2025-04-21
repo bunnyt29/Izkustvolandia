@@ -101,27 +101,9 @@
 											<a href="product-details.html">@product.Name</a>
 										</h4>
 									</div>
-									@if (User.Identity.IsAuthenticated)
-									{
-										@if (product.ProductInCart)
-										{
-											<div class="cart-hover">
-												<h4><a asp-action="RemoveFromCart" asp-route-id="@product.ProductId">Премахни от количката</a></h4>
-											</div>
-										}
-										@if (!product.ProductInCart)
-										{
-											<div class="cart-hover">
-												<h4><a asp-action="AddToCart" asp-route-productId="@product.ProductId">+ Добави в количка</a></h4>
-											</div>
-										}
-									}
-									@if (!User.Identity.IsAuthenticated)
-									{
-										<div class="cart-hover">
-											<h4>Автор: @product.Author</h4>
-										</div>
-									}
+									<div class="cart-hover">
+										<h4>Автор: @product.Author</h4>
+									</div>
 								</div>
 								<div class="product-price-wrapper">
 									<span>@product.Price</span>

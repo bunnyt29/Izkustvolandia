@@ -1,6 +1,6 @@
 ﻿namespace Izkustvolandia.Domain;
 
-public class DrawingTechnique
+public class  DrawingTechnique
 {
     public int DrawingTechniqueId { get; set; }
     
